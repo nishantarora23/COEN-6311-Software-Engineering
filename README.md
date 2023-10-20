@@ -41,7 +41,7 @@ ICDE-JobHive is a comprehensive web-based career services platform which aims to
     <td>4.</td>
     <td>ICDE User Activity Tracking</td>
     <td><a href="https://healthoway.atlassian.net/browse/JH-5">JH-5</a></td>
-    <td></td>
+    <td>The focus lies in capturing and storing user search activities within the ICDE platform. It involves logging and preserving crucial data associated with user searches, specifically the skills users are seeking.</td>
 	<td>Highest</td>
   </tr>
   <tr>
