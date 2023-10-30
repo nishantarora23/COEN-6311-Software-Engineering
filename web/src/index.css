@@ -1,13 +1,112 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+}
+
+body {
+  font-family: 'Helvetica';
+  background-color: #eee;
+  color: #fff;
+  line-height: 1.6;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+.container {
+  max-width: 768px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+header {
+  height: 70px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.card_header {
+  background-color: #fff;
+  width:180%;
+  color: #333;
+  border-radius: 10px;
+  padding: 10px 20px;
+  margin: 10px 0;
+  position: relative;
+  right: 300px;
+}
+
+.card {
+  background-color: #fff;
+  color: #333;
+  border-radius: 15px;
+  padding: 10px 10px;
+  margin: 20px 0;
+  position: relative;
+}
+
+.close,
+.edit {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid #ccc;
+  padding: 8px 10px;
+  border-radius: 8px;
+}
+
+.li {
+  list-style-type: '';
+  padding: 0;
+  display:inline;
+}
+
+
+.button-style-profile {
+  border-radius: 35%;
+  padding: 5px 5px;
+  margin: 5px;
+}
+
+.button-style-submit {
+  border-radius: 12px;
+  padding: 4px 4px;
+  margin: 5px;
+  background-color: #4682b4;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 8px 8px 0 rgba(0,0,0,0.2), 0 8px 8px 0 rgba(0,0,0,0.19);
+}
+
+.input-form {
+  width: 100%;
+  border-radius: 4px;
+  padding: 5px 5px;
+  margin: 5px 0;
+  border: 1px solid;
+}
+
+.margin {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.Link {
+  color: #1D3549;
 }
