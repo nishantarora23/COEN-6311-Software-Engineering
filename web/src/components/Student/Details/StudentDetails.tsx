@@ -308,7 +308,7 @@ const StudentDetails = () => {
       </Snackbar>
       <Typography variant="h4" sx={styles.heading}>
         <EventNoteIcon sx={styles.icon} />
-        Student Details
+        Candidate Details
       </Typography>
 
       {/* Student Information Card */}
@@ -365,7 +365,7 @@ const StudentDetails = () => {
           <Typography variant="body2">{address}</Typography>
         </Box>
       </Card> */}
-      <Box component="div" sx={{ float: "right", marginTop: "-10rem" }}>
+      {/* <Box component="div" sx={{ float: "right", marginTop: "-10rem" }}>
         <Typography variant="body1">
           <Typography
             sx={{ marginLeft: "12px", fontSize: "1.25rem", fontWeight: "bold" }}
@@ -410,7 +410,7 @@ const StudentDetails = () => {
           onChange={handleFileChange}
           hidden
         />
-      </Box>
+      </Box> */}
       {/* Career Resources */}
       {/* <Typography variant="h5" sx={styles.sectionHeading}>
         <EventNoteIcon sx={styles.icon} />

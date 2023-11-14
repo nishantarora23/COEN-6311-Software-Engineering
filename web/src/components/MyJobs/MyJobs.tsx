@@ -1,66 +1,111 @@
 import { injectIntl } from "react-intl";
-import {
-  Box,
-  Button,
-  CardContent,
-  Modal,
-  Typography,
-  withTheme,
-} from "@mui/material";
+import { Box, Button, CardContent, Modal, Typography, Pagination } from "@mui/material";
 
 import { TouchApp, Work } from "@mui/icons-material";
 import { useState, useEffect } from "react";
 import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
+import MuiAlert, { AlertColor } from "@mui/material/Alert";
 import axios from "axios";
 import { API_URL } from "../../constants";
-import { getUserName } from "../../services/userInfoService";
+import { getUserId } from "../../services/userInfoService";
 
-export interface JobInfo {
-  title: string;
-  description: string;
-  username: string;
-  location: string;
-  qualifications: string;
-  deadline: string;
-  submissionDate: string;
-  jobstatus: string;
-  id: string;
+
+// Define interface for the Snackbar state
+export interface EasyApplyResponseSnackbar {
+  open: boolean;
+  severity: AlertColor;
+  message: string;
 }
-
-const MyJobInfo = () => {
+// Define interface for the job information
+export interface JobInfo {
+  Job_Title: string;
+  Company: string;
+  Location: string;
+  Apply_Link: string;
+}
+// Define the JobsList component
+const JobsList = () => {
   const [open, setOpen] = useState(false);
+  const [titleSearch, setTitleSearch] = useState("");
+const [companySearch, setCompanySearch] = useState("");
+
   const [selectedJobInfo, setSelectedJobInfo] = useState<JobInfo>({
-    title: "",
-    description: "",
-    username: "",
-    location: "",
-    qualifications: "",
-    deadline: "",
-    submissionDate: "",
-    jobstatus: "",
-    id: "",
+    Job_Title: "",
+    Company: "",
+    Location: "",
+    Apply_Link: "",
   });
   const [jobsList, setJobsList] = useState<Array<JobInfo>>([]);
+  const [easyApplyResponseSnackbar, setEasyApplyResponseSnackbar] =
+    useState<EasyApplyResponseSnackbar>({
+      open: false,
+      severity: "info",
+      message: "",
+    });
+  // Fetch jobs list from API on component mount
 
-  
+const handleTitleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitleSearch(event.target.value);
+};
 
+const handleCompanySearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCompanySearch(event.target.value);
+};
+
+const handleSearch = () => {
+  if (titleSearch.trim() && companySearch.trim()) {
+  axios
+  .post(`${API_URL}/search`, {
+    id: getUserId(), 
+    keywords: titleSearch,
+    location: companySearch
+  })
+    .then((response) => {
+      setJobsList(response.data?? []);
+    })
+    .catch((error) => {
+      setJobsList([]);
+      console.log(error);
+    });
+  }else{
+    setEasyApplyResponseSnackbar({
+      open: true,
+      severity: "warning",
+      message: "Please fill in both search fields.",
+    });
+    setTimeout(() => {
+      setEasyApplyResponseSnackbar({
+        ...easyApplyResponseSnackbar,
+        open: false,
+      });
+    }, 3000); // 5000ms or 5 seconds to hide the message
+
+  }
+};
   useEffect(() => {
-    fetchJobsList(); // Fetch the jobs list on component mount
+    // axios
+    // .post(`${API_URL}/getRecommendedJobs/search`, {
+    //   id: getUserId(),
+    // })
+    //   .then((response) => {
+    //     setJobsList(response.data?? []);
+    //   })
+    //   .catch((error) => {
+    //     setJobsList([]);
+    //     console.log(error);
+    //   });
   }, []);
 
-  const fetchJobsList = () => {
-    axios
-      .post(`${API_URL}/my-jobs`, {
-        username: getUserName(),
-      })
-      .then((response) => {
-        setJobsList(response?.data ?? []);
-      })
-      .catch((error) => {
-        setJobsList([]);
-        console.log(error);
-      });
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 3; // You can change this to display more or less items per page
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentJobs = jobsList.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Change page handler
+  const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
+    setCurrentPage(value);
   };
 
   const handleOpen = () => {
@@ -70,38 +115,70 @@ const MyJobInfo = () => {
   const handleClose = () => {
     setOpen(false);
   };
-
-  const [showDeleteAlert, setShowDeleteAlert] = useState(false);
-
-  const handleAlertClose = () => {
-    setShowDeleteAlert(false);
-  };
-
-  const deleteMyJob = (jobInfo: JobInfo) => {
-    axios
-      .post(`${API_URL}/application`, {
-        username: getUserName(),
-        jobId: jobInfo.id,
-        ACTION: "REMOVE",
-      })
-      .then((response) => {
-        fetchJobsList();
-        setShowDeleteAlert(true);
-      })
-      .catch((error) => {
-        setJobsList([]);
-        console.log(error);
-      });
-  };
-
+  // Handle easy apply for a job
+  // const handleEasyApply = (payload: JobInfo) => {
+  //   const objectPayload = {
+  //     jobid: payload.id,
+  //     username: getUserName(),
+  //     applicant: getFullName(),
+  //     ACTION: "ADD",
+  //   };
+  //   axios
+  //     .post(`${API_URL}/application`, objectPayload)
+  //     .then(() => {
+  //       setEasyApplyResponseSnackbar({
+  //         open: true,
+  //         severity: "success",
+  //         message: "Applied for job sucessfully.",
+  //       });
+  //     })
+  //     .catch(() => {
+  //       setEasyApplyResponseSnackbar({
+  //         open: true,
+  //         severity: "error",
+  //         message: "Upload your resume to apply for jobs!",
+  //       });
+  //     });
+  // };
+  // Render the JobsList component UI
   return (
     <>
+      <Snackbar open={easyApplyResponseSnackbar.open} autoHideDuration={3000}>
+        <MuiAlert severity={easyApplyResponseSnackbar.severity}>
+          {easyApplyResponseSnackbar.message}
+        </MuiAlert>
+      </Snackbar>
+
+      <Box component="div" sx={{ marginBottom: "20px", display: "flex", justifyContent: "space-between" }}>
+    <input 
+        type="text"
+        placeholder="Job title, keywords, or company"
+        value={titleSearch}
+        onChange={handleTitleSearchChange}
+        style={{ width: "40%", padding: "10px", fontSize: "1rem", marginRight: "10px" }}
+    />
+    <input 
+        type="text"
+        placeholder="City, province, or remote"
+        value={companySearch}
+        onChange={handleCompanySearchChange}
+        style={{ width: "40%", padding: "10px", fontSize: "1rem", marginRight: "10px" }}
+    />
+    <Button
+        variant="contained"
+        color="primary"
+        onClick={handleSearch}
+    >
+        Find Jobs
+    </Button>
+</Box>
+
       <Box component="div" sx={{ marginTop: "20px" }}>
-        {jobsList?.length > 0 &&
-          jobsList.map((jobInfo) => {
+        {currentJobs?.length > 0 &&
+          currentJobs.map((jobInfo) => {
             return (
               <CardContent
-                key={jobInfo.username}
+                key={jobInfo.Job_Title}
                 sx={{
                   borderBottom: "1px solid #868686",
                 }}
@@ -114,26 +191,7 @@ const MyJobInfo = () => {
                     fontSize: "1.5rem",
                   }}
                 >
-                  {jobInfo.title}
-                  <Box
-                    component="span"
-                    sx={{
-                      textTransform: "capitalize",
-                      backgroundColor:
-                        jobInfo.jobstatus === "Accepted"
-                          ? "green"
-                          : jobInfo.jobstatus === "Rejected"
-                          ? "#C41E3A"
-                          : "#e1ad01",
-                      color: "white",
-                      fontSize: "1.25rem",
-                      padding: "5px 15px",
-                      borderRadius: "10px",
-                      marginLeft: "10px",
-                    }}
-                  >
-                    {jobInfo.jobstatus}
-                  </Box>
+                  {jobInfo.Job_Title}
                 </Typography>
                 <Typography
                   sx={{
@@ -141,9 +199,8 @@ const MyJobInfo = () => {
                     fontSize: "1.25rem",
                   }}
                 >
-                  {jobInfo.username}
+                  {jobInfo.Location}
                 </Typography>
-
                 <Typography
                   sx={{
                     textTransform: "capitalize",
@@ -151,48 +208,42 @@ const MyJobInfo = () => {
                     color: "#868686",
                   }}
                 >
-                  {jobInfo.location}
+                  {jobInfo.Company}
                 </Typography>
-                <Typography
-                  sx={{
-                    textTransform: "capitalize",
-                    fontSize: "1.25rem",
-                  }}
-                >
-                  Submitted on {jobInfo.submissionDate}
-                </Typography>
-
                 <Box component="div" sx={{ marginTop: "20px" }}>
                   <Button
                     variant="contained"
                     color="primary"
-                    sx={{ fontSize: "1.1rem", marginRight: "15px" }}
-                    onClick={() => {
-                      setSelectedJobInfo(jobInfo);
-                      handleOpen();
-                    }}
+                    sx={{ fontSize: "1.1rem" }}
+                    href={ jobInfo.Apply_Link }
+                    target="_blank" 
+                    // onClick={() => {
+                    //   debugger;
+                    //   setSelectedJobInfo(jobInfo);
+                    //   handleOpen();
+                    // }}
                   >
-                    <TouchApp sx={{ marginRight: "10px" }} /> View
+                    <TouchApp sx={{ marginRight: "10px" }} /> Apply
                   </Button>
-                  {jobInfo.jobstatus === "PENDING" && (
-                    <Button
-                      variant="contained"
-                      color="info"
-                      sx={{ fontSize: "1.1rem" }}
-                      onClick={() => {
-                        deleteMyJob(jobInfo);
-                      }}
-                    >
-                      <TouchApp sx={{ marginRight: "10px" }} /> DELETE
-                      APPLICATION
-                    </Button>
-                  )}
                 </Box>
               </CardContent>
             );
           })}
       </Box>
-      <Modal
+      {/* Pagination Controls */}
+      {jobsList.length > 0 && (
+        <Box component="div" sx={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+          <Pagination
+            count={Math.ceil(jobsList.length / itemsPerPage)}
+            page={currentPage}
+            onChange={handleChangePage}
+            color="primary"
+            showFirstButton
+            showLastButton
+          />
+        </Box>
+      )}
+      {/* <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-title"
@@ -219,23 +270,23 @@ const MyJobInfo = () => {
               fontWeight: "600",
             }}
           >
-            {selectedJobInfo?.title}
+            {selectedJobInfo?.Job_Title}
           </Typography>
           <p id="modal-description">
-            {selectedJobInfo?.username} . {selectedJobInfo?.location}
+            {selectedJobInfo?.Job_Title} . {selectedJobInfo?.Job_Title}
           </p>
           <Typography>
             <Work sx={{ marginTop: "10px", marginRight: "10px" }} />
-            {selectedJobInfo?.qualifications}
+            {selectedJobInfo?.Job_Title}
           </Typography>
-          {selectedJobInfo?.deadline && (
+          {selectedJobInfo?.Job_Title && (
             <Typography
               sx={{
                 fontSize: "1.1rem",
                 marginTop: "10px",
               }}
             >
-              Interview Schduled on: {selectedJobInfo?.deadline}
+              Apply before: {selectedJobInfo?.Job_Title}
             </Typography>
           )}
           <Typography
@@ -244,25 +295,22 @@ const MyJobInfo = () => {
           >
             About the job
           </Typography>
-          <Typography>{selectedJobInfo?.description}</Typography>
+          <Typography>{selectedJobInfo?.Job_Title}</Typography>
+          <Box component="div" sx={{ float: "right" }}>
+            <Button
+              variant="contained"
+              onClick={() => {
+                // handleEasyApply(selectedJobInfo);
+              }}
+              sx={{ marginRight: "20px" }}
+            >
+              Easy Apply
+            </Button>
+          </Box>
         </Box>
-      </Modal>
-      <Snackbar
-        open={showDeleteAlert}
-        autoHideDuration={4000} // Adjust the duration as per your preference
-        onClose={handleAlertClose}
-      >
-        <MuiAlert
-          elevation={6}
-          variant="filled"
-          onClose={handleAlertClose}
-          severity="success"
-        >
-          Job Deleted Successfully
-        </MuiAlert>
-      </Snackbar>
+      </Modal> */}
     </>
   );
 };
 
-export default injectIntl(MyJobInfo);
+export default injectIntl(JobsList);

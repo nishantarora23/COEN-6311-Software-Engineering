@@ -2,18 +2,17 @@ export type User = {
   fullName: string;
   email: string;
   password: string;
-  userRole: RoleType;
+  // userRole: RoleType;
   dob: string;
-  cName: string;
+  // cName: string;
   username: string;
-  collegeName: string;
+  // collegeName: string;
+  city:string;
+  province:string;
+  country:string;
+  preferredRoles:string;
 };
 
-export enum RoleType {
-  STUDENT = 'Student',
-  EMPLOYER = 'Employer',
-  ADMIN = 'Admin'
-}
 
 export type Auth = {
   email: string;

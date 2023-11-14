@@ -2,14 +2,14 @@ import { useEffect, useMemo, useState } from "react";
 import { injectIntl } from "react-intl";
 import { useNavigate, Link } from "react-router-dom";
 import { Button, Grid } from "@mui/material";
-import RoleForm from "../../components/SignUp/RoleForm";
+// import RoleForm from "../../components/SignUp/RoleForm";
 import UserForm from "../../components/SignUp/UserForm";
 import DisclaimerForm from "../../components/SignUp/DisclaimerForm";
-import { RoleType } from "../../types";
+// import { RoleType } from "../../types";
 import { createUser } from "../../services/userService";
 import "./SignUp.scss";
 import LoadingSpinner from "../../components/common/LoadingSpinner/LoadingSpinner";
-import MenuBar from "../../components/MenuBar/MenuBar";
+// import MenuBar from "../../components/MenuBar/MenuBar";
 import FooterComp from "../../components/FooterComp/FooterComp";
 import AppSnackbar from "../../components/AppSnackbar/AppSnackbar";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
@@ -29,11 +29,15 @@ const SignUp = ({ intl }: Props) => {
     fullName: "",
     email: "",
     password: "",
-    userRole: RoleType.STUDENT,
+    // userRole: RoleType.STUDENT,
     dob: new Date().toISOString().split("T")[0],
-    cName: "",
+    // cName: "",
     username: "",
-    collegeName: "",
+    // collegeName: "",
+    city:"",
+    province:"",
+    country:"",
+    preferredRoles:""
   });
 
   const signUpPages = useMemo(() => {
@@ -52,6 +56,7 @@ const SignUp = ({ intl }: Props) => {
       />,
     ];
   }, [formData, page]);
+  
 
   useEffect(() => {
     const submitForm = async () => {

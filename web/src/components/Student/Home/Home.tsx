@@ -155,6 +155,19 @@ const StudentHome = () => {
               height: "calc(100vh - 350px)",
             }}
           >
+             <div className="menus">
+              <Button
+                component={Link}
+                to={""}
+                color="primary"
+                sx={{ fontSize: "1.1rem" }}
+                onClick={() => {
+                  setScreen("jobs");
+                }}
+              >
+                <Notifications sx={{ marginRight: "10px" }} /> Home
+              </Button>
+            </div>
             <div className="menus">
               <Button
                 component={Link}
@@ -165,7 +178,7 @@ const StudentHome = () => {
                   setScreen("home");
                 }}
               >
-                <Home sx={{ marginRight: "10px" }} /> Home
+                <Home sx={{ marginRight: "10px" }} /> Profile
               </Button>
             </div>
             <div className="menus">
@@ -178,22 +191,10 @@ const StudentHome = () => {
                   setScreen("my-jobs");
                 }}
               >
-                <Bookmark sx={{ marginRight: "10px" }} /> My Jobs
+                <Bookmark sx={{ marginRight: "10px" }} /> Search Jobs
               </Button>
             </div>
-            <div className="menus">
-              <Button
-                component={Link}
-                to={""}
-                color="primary"
-                sx={{ fontSize: "1.1rem" }}
-                onClick={() => {
-                  setScreen("jobs");
-                }}
-              >
-                <Notifications sx={{ marginRight: "10px" }} /> Job Listings
-              </Button>
-            </div>
+           
             <div className="menus">
               <Button
                 component={Link}
@@ -207,7 +208,7 @@ const StudentHome = () => {
                 <Article sx={{ marginRight: "10px" }} /> Resume Builder
               </Button>
             </div>
-            <div className="menus">
+            {/* <div className="menus">
               <Button
                 component={Link}
                 to={""}
@@ -247,7 +248,7 @@ const StudentHome = () => {
                   {resumeAlert.message}
                 </MuiAlert>
               </Snackbar>
-            </div>
+            </div> */}
           </Card>
         </Grid>
         <Grid item xs={12} sm={6} md={7} lg={9}>
@@ -279,10 +280,10 @@ const StudentHome = () => {
                       fontWeight: "600",
                     }}
                   >
-                    Applied Jobs
+                    Search Jobs
                   </Typography>
                   <Typography sx={{ color: "#868686" }}>
-                    Jobs you have applied
+                    
                   </Typography>
                   <MyJobs></MyJobs>
                 </CardContent>
@@ -301,7 +302,7 @@ const StudentHome = () => {
                     Still Hiring
                   </Typography>
                   <Typography sx={{ color: "#868686" }}>
-                    Jobs you may have missed
+                    Jobs recommendations based on your Interest
                   </Typography>
                   <JobsList></JobsList>
                 </CardContent>

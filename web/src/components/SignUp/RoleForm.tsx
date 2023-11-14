@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { injectIntl } from "react-intl";
 import { Button, Grid, Typography } from "@mui/material";
 import { Business, Person } from "@mui/icons-material";
-import { User, RoleType } from "../../types";
+import { User } from "../../types";
 import "./SignUp.scss";
 import "./RoleForm.scss";
 
@@ -16,7 +16,7 @@ type Props = {
 
 const RoleForm = ({ page, setPage, formData, setFormData, intl }: Props) => {
   const [userRole, setUserRole] = useState(
-    formData["userRole"] ? formData["userRole"] : RoleType.STUDENT
+    // formData["userRole"] ? formData["userRole"] : RoleType.STUDENT
   );
 
   useEffect(() => {
@@ -26,19 +26,23 @@ const RoleForm = ({ page, setPage, formData, setFormData, intl }: Props) => {
         fullName: "",
         email: "",
         password: "",
-        userRole: RoleType.STUDENT,
+        // userRole: RoleType.STUDENT,
         dob: new Date().toISOString().split("T")[0],
         cName: "",
         username: "",
-        collegeName: "",
+        // collegeName: "",
+        city:"",
+        province:"",
+        country:"",
+        preferredRoles:""
       },
-      userRole: userRole,
+      // userRole: userRole,
     });
   }, [setFormData, userRole]);
 
   return (
     <Grid className="form-card">
-      <Typography variant="h1">
+      {/* <Typography variant="h1">
         {intl.formatMessage({
           id: "roleForm.title",
         })}
@@ -89,7 +93,7 @@ const RoleForm = ({ page, setPage, formData, setFormData, intl }: Props) => {
             id: "userForm.button.next",
           })}
         </Button>
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 };
