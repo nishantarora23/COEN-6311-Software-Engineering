@@ -8,8 +8,6 @@ services:
     container_name: tomcat
     ports:
       - "8080:8080"
-    volumes:
-      - ./jobhive.war:/usr/local/tomcat/webapps/jobhive.war
     depends_on:
       - mysql
     command: ["/bin/bash", "-c", "sleep 30 && catalina.sh run"]
@@ -20,9 +18,22 @@ services:
     container_name: mysql
     ports:
       - "3306"
-    command: --default-authentication-plugin=mysql_native_password
+    command: --default-authentication-plugin=caching_sha2_password
     environment:
       MYSQL_ROOT_PASSWORD: admin123
     volumes:
-      - ./initial_RFU.sql:/docker-entrypoint-initdb.d/initial_RFU.sql
+      - ./config/Database:/docker-entrypoint-initdb.d
+    restart: always
+    
+  jobhive-node:
+    image: node:latest
+    container_name: node
+    ports:
+      - "3000:3000"
+    depends_on:
+      - tomcat
+    working_dir: /usr/src/app
+    volumes:
+      - ./web:/usr/src/app
+    command: npm start
     restart: always
