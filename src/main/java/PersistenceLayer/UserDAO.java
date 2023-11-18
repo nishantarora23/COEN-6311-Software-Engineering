@@ -10,7 +10,7 @@ import Helper.Helper;
 public class UserDAO {
 
 	// Insert user data into the users table
-	private static String GET_USER_QUERY = "SELECT * FROM USERS WHERE USERNAME = ? AND PASSWORD = ?";
+	private static String GET_USER_QUERY = "SELECT * FROM COEN6311.USERS WHERE USERNAME = ? AND PASSWORD = ?";
 	static {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -19,26 +19,40 @@ public class UserDAO {
 		}
 	}
 
-	public static boolean addUser(User user) throws SQLException {
-
-		try (Connection connection = DriverManager.getConnection(Helper.url,Helper.uname,Helper.pass)) {
-			String sql = "INSERT INTO COEN6311.USERS (FULLNAME,USERNAME,PASSWORD,EMAIL,ADDRESS,DOB) " +
-					"VALUES (?, ?, ?, ?, ?, ?)";
-			PreparedStatement statement = connection.prepareStatement(sql);
+	public static int addUser(User user) throws SQLException {
+		try (Connection connection = DriverManager.getConnection(Helper.url, Helper.uname, Helper.pass)) {
+			String sql = "INSERT INTO COEN6311.USERS (FULLNAME, USERNAME, PASSWORD, EMAIL, DOB, ADDRESS, CITY, PROVINCE, COUNTRY) " +
+					"VALUES (?, ?, ?, ?, ?, ?,?,?,?)";
+			// Use the additional argument to retrieve the auto-generated ID
+			PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, user.getFullName());
 			statement.setString(2, user.getUsername());
 			statement.setString(3, user.getPassword());
 			statement.setString(4, user.getEmail());
-			statement.setString(5, user.getAddress());
-			statement.setString(6, user.getDob());
-
+			statement.setString(5, user.getDob());
+			statement.setString(6, user.getAddress());
+			statement.setString(7, user.getCity());
+			statement.setString(8, user.getProvince());
+			statement.setString(9, user.getCountry());
+			
 			int rowUpdated = statement.executeUpdate();
-			return rowUpdated==1;
+			if (rowUpdated == 1) {
+				// Retrieve the auto-generated ID
+				ResultSet generatedKeys = statement.getGeneratedKeys();
+				if (generatedKeys.next()) {
+					return generatedKeys.getInt(1);
+				} else {
+					throw new SQLException("Failed to retrieve the auto-generated ID.");
+				}
+			} else {
+				return -1; // Indicate that the insertion failed
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return -1; // Indicate that an exception occurred
 		}
-		return false;
 	}
+	
 	public static User getUser(String username, String password){
 		User user = null;
 		try (Connection connection = DriverManager.getConnection(Helper.url, Helper.uname, Helper.pass)) {
@@ -55,7 +69,11 @@ public class UserDAO {
 				String retrievedEmail = resultSet.getString("EMAIL");
 				String retrievedAddress = resultSet.getString("ADDRESS");
 				String retrievedDOB = resultSet.getString("DOB");
-				user = new User(retrievedId,retrievedFullName, retrievedUsername, retrievedPassword, retrievedEmail, retrievedAddress, retrievedDOB);
+				String retrievedCity = resultSet.getString("CITY");
+				String retrievedProvince = resultSet.getString("PROVINCE");
+				String retrievedCountry = resultSet.getString("COUNTRY");
+				user = new User(retrievedId,retrievedFullName, retrievedUsername, retrievedPassword, retrievedEmail, retrievedDOB,
+						retrievedAddress, retrievedCity , retrievedProvince, retrievedCountry);
 			}
 
 		} catch (SQLException | ParseException e) {
@@ -64,5 +82,96 @@ public class UserDAO {
 
 		return user;
 	}
+	
+	public static int updateUser(User user, int userID) throws SQLException {
+	    try (Connection connection = DriverManager.getConnection(Helper.url, Helper.uname, Helper.pass)) {
+	        // Define the SQL UPDATE statement
+	        String sql = "UPDATE COEN6311.USERS SET ";
+	        boolean hasUpdates = false; // Flag to track if any updates were made
 
+	        // Check each column for updates
+	        if (user.getFullName() != null && !user.getFullName().isEmpty()) {
+	            sql += "FULLNAME = ?, ";
+	            hasUpdates = true;
+	        }
+	        if (user.getUsername() != null && !user.getUsername().isEmpty()) {
+	            sql += "USERNAME = ?, ";
+	            hasUpdates = true;
+	        }
+	        if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+	            sql += "PASSWORD = ?, ";
+	            hasUpdates = true;
+	        }
+	        if (user.getEmail() != null && !user.getEmail().isEmpty()) {
+	            sql += "EMAIL = ?, ";
+	            hasUpdates = true;
+	        }
+	        if (user.getDob() != null && !user.getDob().isEmpty()) {
+	            sql += "DOB = ?, ";
+	            hasUpdates = true;
+	        }
+	        if (user.getAddress() != null && !user.getAddress().isEmpty()) {
+	            sql += "ADDRESS = ?, ";
+	            hasUpdates = true;
+	        }
+	        if (user.getCity() != null && !user.getCity().isEmpty()) {
+	            sql += "CITY = ?, ";
+	            hasUpdates = true;
+	        }
+	        if (user.getCountry() != null && !user.getCountry().isEmpty()) {
+	            sql += "COUNTRY = ?, ";
+	            hasUpdates = true;
+	        }
+
+	        // Remove the trailing comma and space if there were updates
+	        if (hasUpdates) {
+	            sql = sql.substring(0, sql.length() - 2);
+	        } else {
+	            // No updates were made
+	            return 0;
+	        }
+
+	        // Add the WHERE clause to specify the user to update based on userID
+	        sql += " WHERE ID = ?";
+
+	        PreparedStatement statement = connection.prepareStatement(sql);
+	        
+	        // Set the updated column values
+	        int parameterIndex = 1;
+	        if (user.getFullName() != null && !user.getFullName().isEmpty()) {
+	            statement.setString(parameterIndex++, user.getFullName());
+	        }
+	        if (user.getUsername() != null && !user.getUsername().isEmpty()) {
+	            statement.setString(parameterIndex++, user.getUsername());
+	        }
+	        if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+	            statement.setString(parameterIndex++, user.getPassword());
+	        }
+	        if (user.getEmail() != null && !user.getEmail().isEmpty()) {
+	            statement.setString(parameterIndex++, user.getEmail());
+	        }
+	        if (user.getDob() != null && !user.getDob().isEmpty()) {
+	            statement.setString(parameterIndex++, user.getDob());
+	        }
+	        if (user.getAddress() != null && !user.getAddress().isEmpty()) {
+	            statement.setString(parameterIndex++, user.getAddress());
+	        }
+	        if (user.getCity() != null && !user.getCity().isEmpty()) {
+	            statement.setString(parameterIndex++, user.getCity());
+	        }
+	        if (user.getCountry() != null && !user.getCountry().isEmpty()) {
+	            statement.setString(parameterIndex++, user.getCountry());
+	        }
+
+	        // Set the userID for the WHERE clause
+	        statement.setInt(parameterIndex, userID);
+
+	        int rowsUpdated = statement.executeUpdate();
+
+	        return rowsUpdated;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return -1; // Indicate that an exception occurred
+	    }
+	}
 }

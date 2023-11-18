@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
         user= LoginServices.authenticate(jsonPayload.get("username").getAsString(), jsonPayload.get("password").getAsString());
         Gson gson = new Gson();
         String jsonResponse = gson.toJson(user);
-
+        System.out.println(jsonResponse);
 	    response.setContentType("application/json");
 	    response.getWriter().write(jsonResponse);
 	    response.setStatus(HttpServletResponse.SC_OK);
