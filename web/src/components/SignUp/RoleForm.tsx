@@ -5,6 +5,7 @@ import { Business, Person } from "@mui/icons-material";
 import { User } from "../../types";
 import "./SignUp.scss";
 import "./RoleForm.scss";
+import React from "react";
 
 type Props = {
   intl: any;

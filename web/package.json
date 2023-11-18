@@ -1,5 +1,5 @@
 {
-  "name": "careerconnect-web",
+  "name": "jobhive-web",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
@@ -34,7 +34,7 @@
   },
   "scripts": {
     "prepare": "cd .. && husky install web/.husky",
-    "start": "react-scripts start",
+    "start": "set BROWSER=none&& react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
