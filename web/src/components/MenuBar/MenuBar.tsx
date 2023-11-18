@@ -11,6 +11,7 @@ import { getUserName, getUserRole, getFullName, getIsLoggedIn } from '../../serv
 import './MenuBar.scss';
 import { indigo } from '@mui/material/colors';
 import Logo from '../../assets/HeaderLogo.png';
+import React from 'react';
 
 type Props = {
   intl: any;
@@ -89,7 +90,6 @@ const MenuBar = ({ intl, title, noBtn }: Props) => {
               <Grid container className="userProfile-container end-container">
                 <Avatar sx={{ bgcolor: indigo[100], width: '30px', height: '30px' }}>
                   {userRole === 'Student' && <Work color="primary" />}
-                  {userRole === 'Employer' && <Work color="primary" />}
                 </Avatar>
                 <Typography>{getFullName()}</Typography>
                 <IconButton color="secondary" component={Link} to={'/'} onClick={doLogout}>

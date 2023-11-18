@@ -97,20 +97,7 @@ const RoleForm = ({ page, setPage, formData, setFormData, intl }: Props) => {
     }
   ];
 
-  // if (formData["userRole"] === RoleType.EMPLOYER) {
-  //   USER_FIELDS.push({
-  //     id: "cName",
-  //     type: "text",
-  //     rules: { required: true },
-  //   });
-  // }
-  // if (formData["userRole"] === RoleType.STUDENT) {
-  //   USER_FIELDS.push({
-  //     id: "collegeName",
-  //     type: "text",
-  //     rules: { required: true },
-  //   });
-  // }
+
 
   return (
     <>

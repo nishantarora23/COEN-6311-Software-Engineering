@@ -8,6 +8,7 @@ import MuiAlert, { AlertColor } from "@mui/material/Alert";
 import axios from "axios";
 import { API_URL } from "../../constants";
 import { getFullName, getUserName, getUserId } from "../../services/userInfoService";
+import React from "react";
 
 
 // Define interface for the Snackbar state
@@ -46,112 +47,9 @@ const JobsList = () => {
       id: getUserId(),
     })
       .then((response) => {
+        debugger;
         setJobsList(response.data?? []);
-        // setJobsList(response?.data ?? []);
-        // {
-        //   title: "Senior Software Engineer",
-        //   description: "Lead the development of our main platform and manage a small team of junior developers.",
-        //   name: "Tech Innovations Inc.",
-        //   location: "Boston, MA",
-        //   qualifications: "Bachelor's degree in Computer Science, 5+ years of experience, leadership skills.",
-        //   deadline: "2023-12-15",
-        //   id: "job-001"
-        // },
-        
-        // const jobListings = [
-        //   {
-        //     title: "Senior Software Engineer",
-        //     description: "Lead the development of our main platform and manage a small team of junior developers.",
-        //     name: "Tech Innovations Inc.",
-        //     location: "Boston, MA",
-        //     qualifications: "Bachelor's degree in Computer Science, 5+ years of experience, leadership skills.",
-        //     deadline: "2023-12-15",
-        //     id: "job-001"
-        //   },
-        //   {
-        //     title: "Data Analyst",
-        //     description: "Analyze large datasets to extract meaningful insights and support strategic decisions.",
-        //     name: "DataWise Analytics",
-        //     location: "San Francisco, CA",
-        //     qualifications: "Bachelor's degree in Statistics or related field, proficiency in SQL and Python, experience with data visualization tools.",
-        //     deadline: "2023-11-30",
-        //     id: "job-002"
-        //   },
-        //   {
-        //     title: "UX/UI Designer",
-        //     description: "Create user-centric designs for our mobile and web applications.",
-        //     name: "Creative Solutions",
-        //     location: "Seattle, WA",
-        //     qualifications: "Bachelor's degree in Design, portfolio of design projects, experience with Sketch or Figma.",
-        //     deadline: "2023-10-31",
-        //     id: "job-003"
-        //   },
-        //   {
-        //     title: "Marketing Manager",
-        //     description: "Lead our marketing team to drive brand awareness and generate leads through various marketing channels.",
-        //     name: "MarketGurus Inc.",
-        //     location: "New York, NY",
-        //     qualifications: "Bachelor's degree in Marketing, 5+ years of marketing experience, strong communication skills.",
-        //     deadline: "2023-11-20",
-        //     id: "job-004"
-        //   },
-        //   {
-        //     title: "Network Security Expert",
-        //     description: "Protect company's data and infrastructure from cyber threats.",
-        //     name: "SecureTech Innovations",
-        //     location: "Dallas, TX",
-        //     qualifications: "Bachelor's degree in Information Technology, certifications in cybersecurity, 5+ years of experience in network security.",
-        //     deadline: "2023-12-01",
-        //     id: "job-005"
-        //   },
-        //   {
-        //     title: "Senior Software Engineer",
-        //     description: "Lead the development of our main platform and manage a small team of junior developers.",
-        //     name: "Tech Innovations Inc.",
-        //     location: "Boston, MA",
-        //     qualifications: "Bachelor's degree in Computer Science, 5+ years of experience, leadership skills.",
-        //     deadline: "2023-12-15",
-        //     id: "job-001"
-        //   },
-        //   {
-        //     title: "Data Analyst",
-        //     description: "Analyze large datasets to extract meaningful insights and support strategic decisions.",
-        //     name: "DataWise Analytics",
-        //     location: "San Francisco, CA",
-        //     qualifications: "Bachelor's degree in Statistics or related field, proficiency in SQL and Python, experience with data visualization tools.",
-        //     deadline: "2023-11-30",
-        //     id: "job-002"
-        //   },
-        //   {
-        //     title: "UX/UI Designer",
-        //     description: "Create user-centric designs for our mobile and web applications.",
-        //     name: "Creative Solutions",
-        //     location: "Seattle, WA",
-        //     qualifications: "Bachelor's degree in Design, portfolio of design projects, experience with Sketch or Figma.",
-        //     deadline: "2023-10-31",
-        //     id: "job-003"
-        //   },
-        //   {
-        //     title: "Marketing Manager",
-        //     description: "Lead our marketing team to drive brand awareness and generate leads through various marketing channels.",
-        //     name: "MarketGurus Inc.",
-        //     location: "New York, NY",
-        //     qualifications: "Bachelor's degree in Marketing, 5+ years of marketing experience, strong communication skills.",
-        //     deadline: "2023-11-20",
-        //     id: "job-004"
-        //   },
-        //   {
-        //     title: "Network Security Expert",
-        //     description: "Protect company's data and infrastructure from cyber threats.",
-        //     name: "SecureTech Innovations",
-        //     location: "Dallas, TX",
-        //     qualifications: "Bachelor's degree in Information Technology, certifications in cybersecurity, 5+ years of experience in network security.",
-        //     deadline: "2023-12-01",
-        //     id: "job-005"
-        //   },
-        // ];
-        // setJobsList(jobListings);
-        // console.log(jobs);
+      
         
       })
       .catch((error) => {
