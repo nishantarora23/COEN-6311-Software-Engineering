@@ -6,7 +6,7 @@ import { User } from '../types';
 type JobId = number | string | undefined;
 // Create a new user
 export const createUser = (user: User) => {
-  return axios.post(`${API_URL}/users`, user);
+  return axios.post(`${API_URL}/addUser`, user);
 };
 // Get all users
 export const getAllUsers = () => {

@@ -2,7 +2,7 @@ import React from "react";
 import { injectIntl } from "react-intl";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
-import { RoleType, User } from "../../types";
+import {  User } from "../../types";
 import "./SignUp.scss";
 
 type Props = {
@@ -50,7 +50,17 @@ const RoleForm = ({ page, setPage, formData, setFormData, intl }: Props) => {
     {
       id: "password",
       type: "password",
-      rules: { required: true },
+      rules: {
+        required: "Password is required",
+        minLength: {
+          value: 8,
+          message: "Password must be at least 8 characters long",
+        },
+        pattern: {
+          value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+          message: "Password must contain at least one letter, one number, and one special character",
+        },
+      },
     },
     {
       id: "confirmPassword",
@@ -65,32 +75,52 @@ const RoleForm = ({ page, setPage, formData, setFormData, intl }: Props) => {
       type: "date",
       rules: { required: true },
     },
+    {
+      id: "city",
+      type: "text",
+      rules: { required: true },
+    },
+    {
+      id: "province",
+      type: "text",
+      rules: { required: true },
+    },
+    {
+      id: "country",
+      type: "text",
+      rules: { required: true },
+    },
+    {
+      id: "preferredRoles",
+      type: "text",
+      rules: { required: true },
+    }
   ];
 
-  if (formData["userRole"] === RoleType.EMPLOYER) {
-    USER_FIELDS.push({
-      id: "cName",
-      type: "text",
-      rules: { required: true },
-    });
-  }
-  if (formData["userRole"] === RoleType.STUDENT) {
-    USER_FIELDS.push({
-      id: "collegeName",
-      type: "text",
-      rules: { required: true },
-    });
-  }
+  // if (formData["userRole"] === RoleType.EMPLOYER) {
+  //   USER_FIELDS.push({
+  //     id: "cName",
+  //     type: "text",
+  //     rules: { required: true },
+  //   });
+  // }
+  // if (formData["userRole"] === RoleType.STUDENT) {
+  //   USER_FIELDS.push({
+  //     id: "collegeName",
+  //     type: "text",
+  //     rules: { required: true },
+  //   });
+  // }
 
   return (
     <>
       <Grid container className="form-card">
         <Typography variant="h1">
-          {intl.formatMessage({
+          {/* {intl.formatMessage({
             id: "userForm.title",
-          })}
+          })} */}
         </Typography>
-        <Typography variant="h2">
+        <Typography variant="h2" style={{ marginBottom: 10 }}>
           {intl.formatMessage({
             id: "userForm.label",
           })}
