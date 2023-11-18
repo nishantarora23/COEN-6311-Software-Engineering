@@ -10,6 +10,10 @@
 	<servlet>
         <servlet-name>UserServlet</servlet-name>
         <servlet-class>Controller.UserServlet</servlet-class>
+    </servlet> 
+	<servlet>
+        <servlet-name>JobServlet</servlet-name>
+        <servlet-class>Controller.JobServlet</servlet-class>
     </servlet> 	
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -17,7 +21,15 @@
     </servlet-mapping>
 	<servlet-mapping>
         <servlet-name>UserServlet</servlet-name>
-        <url-pattern>/users</url-pattern>
+        <url-pattern>/addUser</url-pattern>
+    </servlet-mapping>
+	<servlet-mapping>
+        <servlet-name>JobServlet</servlet-name>
+        <url-pattern>/getRecommendedJobs</url-pattern>
+    </servlet-mapping>
+	<servlet-mapping>
+        <servlet-name>JobServlet</servlet-name>
+        <url-pattern>/search</url-pattern>
     </servlet-mapping>
     <filter>
         <filter-name>CORSFilter</filter-name>
