@@ -25,15 +25,14 @@ services:
       - ./config/Database:/docker-entrypoint-initdb.d
     restart: always
     
-  jobhive-node:
-    image: node:latest
-    container_name: node
+  jobhive-server:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    container_name: jobhive
     ports:
-      - "3000:3000"
-    depends_on:
-      - tomcat
-    working_dir: /usr/src/app
+      - "80:80"
     volumes:
-      - ./web:/usr/src/app
-    command: npm start
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf
+    command: ["nginx", "-g", "daemon off;"]
     restart: always
