@@ -12,6 +12,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
+    "allowJs": true,
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
     "types": ["vite/client"]
