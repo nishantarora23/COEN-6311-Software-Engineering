@@ -3,6 +3,8 @@
 !src/**/build/
 web/package-lock.json
 web/node_modules
+resume/package-lock.json
+resume/node_modules
 
 # Ignore Gradle GUI config
 gradle-app.setting
