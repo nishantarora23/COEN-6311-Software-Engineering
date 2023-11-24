@@ -23,5 +23,7 @@ sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-
 sudo chmod +x /usr/local/bin/docker-compose
 
 # Call replace.sh script
+sudo yum install dos2unix -y
 sudo chmod +x ICDE-JobHive/config/aws/replace.sh
+sudo dos2unix ICDE-JobHive/config/aws/replace.sh
 sudo ICDE-JobHive/config/aws/replace.sh

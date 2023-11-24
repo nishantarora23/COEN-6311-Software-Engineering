@@ -36,3 +36,14 @@ services:
       - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf
     command: ["nginx", "-g", "daemon off;"]
     restart: always
+
+  resume-server:
+    image: node:latest
+    container_name: node
+    ports:
+      - "3001:3001"
+    working_dir: /usr/src/app
+    volumes:
+      - ./resume:/usr/src/app
+    command: npm install && npm run dev
+    restart: always
