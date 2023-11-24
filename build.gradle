@@ -17,12 +17,24 @@ dependencies {
 	implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
     implementation 'org.jsoup:jsoup:1.14.3'
     implementation 'com.google.code.gson:gson:2.8.9'
+	testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.powermock:powermock-module-junit4:2.0.9'
+    testImplementation 'org.powermock:powermock-api-mockito2:2.0.9'
+	testImplementation 'net.bytebuddy:byte-buddy:1.10.14'
+    testImplementation 'net.bytebuddy:byte-buddy-agent:1.10.14'
+    testImplementation 'org.objenesis:objenesis:2.6'
+	testImplementation 'org.hamcrest:hamcrest-core:2.2'
 }
 
 sourceSets {
     main {
         java {
             srcDirs = ['src/main/java']
+        }
+    }
+	test {
+        java {
+            srcDirs = ['src/test/java']
         }
     }
 }
