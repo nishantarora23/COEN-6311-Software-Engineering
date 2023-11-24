@@ -1,7 +1,8 @@
 import { setStore, store } from "../store";
-import { For } from "solid-js";
-
+import { For, createEffect, onCleanup } from "solid-js";
 import { Icon } from "@iconify-icon/solid";
+import { createSignal } from "solid-js";
+import APIcall from "./APIcall"
 
 const PersonalDetails = () => {
   const placeholders = [
@@ -111,6 +112,47 @@ const Education_WorkExp = (props: any) => {
   );
 };
 
+const ChatGPTFloatingCard = (props:{skillNew:string}) => {
+  
+  const [response, setResponse] = createSignal("");
+  createEffect( async () => {
+    setResponse("")
+    const fetchData = async () => {
+      try {
+        if (props.skillNew !== "") {
+          const APIresponse = await APIcall(props.skillNew);
+          //const APIresponse = props.skillNew
+          setResponse(APIresponse)}
+        else{
+          setResponse("No recomendations")
+        }} catch (error) {
+          console.error("Error fetching data:", error);
+          setResponse("Error fetching recommendations");
+        }};
+        if (props.skillNew !== "" ){
+          fetchData();
+        }
+    }, [props.skillNew]);
+
+    return (
+      <>
+        <div class="floating-card">
+          <p>Add your current skills in the Skills Section 
+          to get related recommendations from the ChatGPT AI...</p>
+        {props.skillNew !== "" ?
+          <>
+          <p>For {props.skillNew}, recommendations are: </p>
+          {response !== null ?
+          <p>{response}</p>:<p></p>}
+          </>
+        :<p></p>}
+      </div>
+      </>
+    );
+  };
+
+const [latestSkill,setLatestSkill] = createSignal('')
+
 const Skills_Hobbies = (props: any) => {
   const { store_name } = props;
 
@@ -138,8 +180,11 @@ const Skills_Hobbies = (props: any) => {
                   : "interest / hobby"}
                 value={val}
                 size={val.length}
-                onchange={(e) =>
-                  setStore(store_name, index(), e.target.value)}
+                onchange={(e) => {
+                  setStore(store_name, index(), e.target.value);
+                  if (store_name === "skills") {
+                    setLatestSkill(e.target.value);
+                  };}}
               />
 
               <button
@@ -242,5 +287,6 @@ export default () => (
     <Skills_Hobbies store_name="skills" />
     <Skills_Hobbies store_name="interests" />
     <Oss />
+    <ChatGPTFloatingCard skillNew={latestSkill()}/>
   </div>
 );

@@ -4,7 +4,11 @@
   "type": "module",
   "dependencies": {
     "html-to-image": "^1.11.4",
-    "solid-js": "^1.6.7"
+    "solid-js": "^1.6.7",
+    "chatgpt": "^5.2.5",
+    "openai": "^4.17.3",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0"
   },
   "devDependencies": {
     "@iconify-icon/solid": "^1.0.7",
