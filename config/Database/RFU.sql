@@ -37,8 +37,8 @@ CREATE TABLE `COEN6311`.`PROFILES` (
 -- Create new table 'SEARCH' for data capture of user search history
 CREATE TABLE COEN6311.SEARCH (
     SEARCH_ID INT AUTO_INCREMENT, -- This column will auto-increment
-    USER_id INT,
+    USER_ID INT,
 	SEARCH_KEYWORD VARCHAR(255),
     SEARCH_TIMESTAMP TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Optional: a timestamp for when the search was performed
-    PRIMARY KEY (id)
+    PRIMARY KEY (SEARCH_ID)
 );
