@@ -12,7 +12,7 @@ public class Helper {
 
 	static {
 
-		url = "jdbc:mysql://127.0.0.1:3306/soen6011";
+		url = "jdbc:mysql://localhost:3306/COEN6311";
 		uname =  "root";
 		pass = "admin123";
 		System.out.println(url + "  "+ uname+ "  "+pass);
