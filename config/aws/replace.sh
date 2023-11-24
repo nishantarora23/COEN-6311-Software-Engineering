@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Check if a new IP address is provided as an argument
 if [ -z "$1" ]; then
     echo "Usage: $0 <new_ip_address>"
