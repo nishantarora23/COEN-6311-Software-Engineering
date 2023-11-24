@@ -24,32 +24,32 @@ public class JobServlet extends HttpServlet{
 
 		String payloadData = Helper.getPayload(request);
 		JsonObject jsonPayload = new Gson().fromJson(payloadData, JsonObject.class);
-
-
 		String requestURL = request.getRequestURI();
 		JSONArray arr = new JSONArray();
-		// Check if the URL contains "/search"
+		int id = jsonPayload.get("id").getAsInt();
+
+		// API call /search
 		if (requestURL.contains("/search")) {
 			String keywords = jsonPayload.get("keywords").getAsString();
 			String location = jsonPayload.get("location").getAsString();
+
 			arr= JobServices.searchJobs(keywords, location);
+			if(arr.length()>0) {
+
+				JobServices.addSearchHistory(keywords,location, id);				
+			}
 		} 
+		// API call /lastsearch
+		else if(requestURL.contains("/lastSearch")) {
+			arr = JobServices.getSearchHistory(id);
+		}
 		else {
-			int id = jsonPayload.get("id").getAsInt();
 			arr = JobServices.getRecommendedJobs(id);
 		}
-		// Set the response content type to JSON
 		response.setContentType("application/json");
-
-		// Get the PrintWriter to write the response
 		PrintWriter out = response.getWriter();
-
-		// Write the JSON array to the response
 		out.print(arr.toString());
-
-		// Close the PrintWriter
 		out.close();
 	}
-
 
 }
