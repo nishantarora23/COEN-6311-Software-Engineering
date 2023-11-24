@@ -10,7 +10,7 @@ fi
 new_ip="$1"
 
 # List of files to modify
-files=("/home/ec2-user/ICDE-JobHive/web/src/constants.ts" "/home/ec2-user/ICDE-JobHive/src/main/java/Helper/Helper.java")
+files=("/home/ec2-user/ICDE-JobHive/web/src/constants.ts" "/home/ec2-user/ICDE-JobHive/src/main/java/Helper/Helper.java" "/home/ec2-user/ICDE-JobHive/src/main/java/CORSFilter.java")
 
 # IP address to replace
 old_ip="localhost"
