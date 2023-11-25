@@ -2,20 +2,62 @@ package Models;
 
 import java.text.ParseException;
 
+/**
+ * The User class represents a user entity with attributes such as ID, full name, email, password, date of birth,
+ * username, address, city, province, and country.
+ *
+ * @author Nishant Arora
+ * @version 1.0
+ */
 public class User {
+
+	/** The unique identifier for the user. */
 	private int id;
+
+	/** The full name of the user. */
 	private String fullName;
+
+	/** The email address of the user. */
 	private String email;
+
+	/** The password of the user. */
 	private String password;
+
+	/** The date of birth of the user. */
 	private String dob;
+
+	/** The username of the user. */
 	private String username;
+
+	/** The address of the user. */
 	private String address;
+
+	/** The city of the user. */
 	private String city;
+
+	/** The province of the user. */
 	private String province;
+
+	/** The country of the user. */
 	private String country;
 
-	public User(int id, String fullName, String username, String password, String email, String dob, String address,
-			String city, String province, String country) throws ParseException {
+	/**
+	 * Constructs a new User object with the specified attributes.
+	 *
+	 * @param id The unique identifier for the user.
+	 * @param fullName The full name of the user.
+	 * @param username The username of the user.
+	 * @param password The password of the user.
+	 * @param email The email address of the user.
+	 * @param dob The date of birth of the user.
+	 * @param address The address of the user.
+	 * @param city The city of the user.
+	 * @param province The province of the user.
+	 * @param country The country of the user.
+	 * @throws ParseException If an error occurs while parsing the date of birth.
+	 */
+	public User(int id, String fullName, String username, String password, String email, String dob,
+			String address, String city, String province, String country) throws ParseException {
 		this.id = id;
 		this.fullName = fullName;
 		this.username = username;
@@ -27,6 +69,10 @@ public class User {
 		this.province = province;
 		this.country = country;
 	}
+
+	/**
+	 * Default constructor for the User class.
+	 */
 	public User()
 	{
 	}

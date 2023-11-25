@@ -7,6 +7,13 @@ import java.text.ParseException;
 import java.sql.ResultSet;
 import Helper.Helper;
 
+/**
+ * The UserDAO class provides data access methods for interacting with the database related to user records.
+ * It includes methods for adding, retrieving, and updating user information.
+ *
+ * @author Merlin Abraham
+ * @version 1.0
+ */
 public class UserDAO {
 
 	// Insert user data into the users table
@@ -18,7 +25,13 @@ public class UserDAO {
 			throw new RuntimeException(e);
 		}
 	}
-
+	  /**
+     * Adds a new user to the database with the provided user information.
+     *
+     * @param user The user object containing user information.
+     * @return The ID of the inserted user, or -1 if the insertion fails.
+     * @throws SQLException If a SQL exception occurs during the database operation.
+     */
 	public static int addUser(User user) throws SQLException {
 		try (Connection connection = DriverManager.getConnection(Helper.url, Helper.uname, Helper.pass)) {
 			String sql = "INSERT INTO COEN6311.USERS (FULLNAME, USERNAME, PASSWORD, EMAIL, DOB, ADDRESS, CITY, PROVINCE, COUNTRY) " +
@@ -52,7 +65,13 @@ public class UserDAO {
 			return -1; // Indicate that an exception occurred
 		}
 	}
-	
+	/**
+     * Retrieves a user from the database based on the provided username and password.
+     *
+     * @param username The username of the user.
+     * @param password The password of the user.
+     * @return The User object representing the retrieved user, or null if not found.
+     */
 	public static User getUser(String username, String password){
 		User user = null;
 		try (Connection connection = DriverManager.getConnection(Helper.url, Helper.uname, Helper.pass)) {
@@ -82,7 +101,15 @@ public class UserDAO {
 
 		return user;
 	}
-	
+	 /**
+     * Updates user information in the database for the specified user ID.
+     *
+     * @param user The User object containing updated user information.
+     * @param userID The ID of the user to update.
+     * @return The number of rows updated in the database.
+     *         Returns 0 if no updates were made, -1 if an exception occurred.
+     * @throws SQLException If a SQL exception occurs during the database operation.
+     */
 	public static int updateUser(User user, int userID) throws SQLException {
 	    try (Connection connection = DriverManager.getConnection(Helper.url, Helper.uname, Helper.pass)) {
 	        // Define the SQL UPDATE statement
