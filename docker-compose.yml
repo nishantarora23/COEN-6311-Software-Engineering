@@ -27,7 +27,7 @@ services:
     
   jobhive-server:
     build:
-      context: ./web
+      context: ./webapp
       dockerfile: Dockerfile
     container_name: jobhive
     ports:
