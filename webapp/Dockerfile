@@ -39,4 +39,4 @@ FROM nginx:latest
 
 # Copy the build artifacts from the build image to the Nginx image
 COPY --from=web_build /usr/src/app1/build /usr/share/nginx/html
-COPY --from=resume_build /usr/src/app2/build /usr/share/nginx/html/resume
+COPY --from=resume_build /usr/src/app2/dist /usr/share/nginx/html/resume
