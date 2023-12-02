@@ -32,14 +32,13 @@ const LandingPage = ({ intl }: Props) => {
       )}
 
       {/* <MenuBar title={intl.formatMessage({ id: 'global.app_title' })} noBtn={true} /> */}
-      <img className="landing-page-background" src={Background} />
+      {/* <img className="landing-page-background" src={Background} /> */}
       <Grid container className="landing-page-container">
         <Grid item xs={6}></Grid>
         <Grid item xs={6} className="login">
           <Login></Login>
         </Grid>
       </Grid>
-      <Footer />
     </>
   );
 };

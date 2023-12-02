@@ -13,6 +13,7 @@ import LoadingSpinner from "../../components/common/LoadingSpinner/LoadingSpinne
 import FooterComp from "../../components/FooterComp/FooterComp";
 import AppSnackbar from "../../components/AppSnackbar/AppSnackbar";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
+import SignUpHero from "../../components/SignUp/SignUpHero";
 type Props = {
   intl: any;
 };
@@ -93,6 +94,7 @@ const SignUp = ({ intl }: Props) => {
         title={intl.formatMessage({ id: "global.app_title" })}
         noBtn={true}
       /> */}
+      <SignUpHero></SignUpHero>
       <Grid container className="sign-up-container">
         <LoadingSpinner isOpen={loading} />
         <Grid container justifyContent="left">
@@ -105,7 +107,7 @@ const SignUp = ({ intl }: Props) => {
         </Grid>
         {signUpPages[page]}
       </Grid>
-      <FooterComp />
+      
     </>
   );
 };

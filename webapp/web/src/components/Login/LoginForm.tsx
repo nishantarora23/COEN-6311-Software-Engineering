@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { injectIntl } from "react-intl";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Grid, TextField } from "@mui/material";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import { Auth } from "../../types";
 import { login } from "../../services/authService";
@@ -85,6 +85,15 @@ const LoginForm = ({ formData, setFormData, intl }: Props) => {
           justifyContent="center"
           alignItems="center"
         >
+           <Box>
+        <h1>Job Seeker Login</h1>
+      <h5 className="typeset">
+        Don't have an account yet?{' '}
+        <Link to="/signup" className="link">
+          Create account
+        </Link>
+      </h5>
+      </Box>
           {LOGIN_FIELDS.map((key, index) => {
             return (
               <Grid key={index} item xs={12}>
@@ -100,6 +109,15 @@ const LoginForm = ({ formData, setFormData, intl }: Props) => {
                       label={intl.formatMessage({
                         id: `authForm.form.label.${key.id}`,
                       })}
+                      InputLabelProps={{
+                        style: { color: '#000000' }
+                      }}
+                      InputProps={{
+                        style: {
+                          borderBottom: `2px solid #000000`,
+                          transition: 'border-bottom 0.3s', // Optional: Add transition for smoother effect
+                        }
+                      }}
                       error={error !== undefined}
                       type={key.type}
                       helperText={

@@ -7,7 +7,7 @@ import AppRoutes from './views/AppRoutes';
 function App() {
   return (
     <Grid container direction="column">
-      <Header></Header>
+      
       <AppRoutes></AppRoutes>
       <Footer></Footer>
     </Grid>
