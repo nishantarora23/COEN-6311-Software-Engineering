@@ -259,7 +259,7 @@ const StudentHome = () => {
               padding: "15px",
               borderRadius: "10px",
               border: "1px solid #c4c4c4",
-              height: "calc(100vh - 350px)",
+              height: "auto",
               overflowY: "auto",
             }}
           >

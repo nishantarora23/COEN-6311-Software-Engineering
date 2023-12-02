@@ -1,88 +1,74 @@
 import { injectIntl } from 'react-intl';
-import './Footer.scss';
-import { BottomNavigation, Grid, Typography, Paper } from '@mui/material';
-import PersonIcon from '@mui/icons-material/Person';
-import BusinessIcon from '@mui/icons-material/Business';
-
+import React from 'react';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Link from '@mui/material/Link';
+import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import PinterestIcon from '@mui/icons-material/Pinterest';
+import InstagramIcon from '@mui/icons-material/Instagram';
 type Props = {
   intl: any;
 };
 
+
+
 const Footer = ({ intl }: Props) => {
   return (
-    <Paper sx={{ position: 'relative', bottom: 0, left: 0, right: 0 }} elevation={3}>
-      <BottomNavigation className="footer-container">
-        <Grid container>
-          <Grid item xs={4} className="footer-section-container">
-            <Grid className="footer-title-container">
-              <Typography className="footer-title">
-                {intl.formatMessage({
-                  id: 'landingPage.workingHoursTitle'
-                })}
-              </Typography>
-            </Grid>
-            <Typography className="footer-description">
-              {intl.formatMessage({
-                id: 'landingPage.workingHours1'
-              })}
-            </Typography>
-            <Typography className="footer-description">
-              {intl.formatMessage({
-                id: 'landingPage.workingHours2'
-              })}
-            </Typography>
-            <Typography className="footer-description">
-              {intl.formatMessage({
-                id: 'landingPage.workingHours3'
-              })}
-            </Typography>
-          </Grid>
-          <Grid item xs={4} className="footer-section-container">
-            <Grid className="footer-title-container">
-              <PersonIcon className="footer-icons" />
-              <Typography className="footer-title">
-                {intl.formatMessage({
-                  id: 'landingPage.clientReviewTitle'
-                })}
-              </Typography>
-            </Grid>
-            <Typography className="footer-description1">
-              <em>
-                {intl.formatMessage({
-                  id: 'landingPage.clientReview'
-                })}
-              </em>
-            </Typography>
-            <Typography className="footer-description2">
-              {intl.formatMessage({
-                id: 'landingPage.clientName'
-              })}
-            </Typography>
-          </Grid>
-          <Grid item xs={4} className="footer-section-container">
-            <Grid className="footer-title-container">
-              <BusinessIcon className="footer-icons" />
-              <Typography className="footer-title">
-                {intl.formatMessage({
-                  id: 'landingPage.addressTitle'
-                })}
-              </Typography>
-            </Grid>
-            <Typography className="footer-description">
-              {intl.formatMessage({
-                id: 'landingPage.addressLine1'
-              })}
-            </Typography>
-            <Typography className="footer-description">
-              {intl.formatMessage({
-                id: 'landingPage.addressLine2'
-              })}
-            </Typography>
-          </Grid>
+    <Box
+      sx={{
+        width: '100%',
+        backgroundColor: 'hsl(232.5deg 12.12% 12.94%)', // Customize the color using theme
+        color: 'white',
+        py: 8, // Padding top & bottom
+      }}
+    >
+      <Grid container spacing={2} justifyContent="space-around" alignItems="center">
+        <Grid item xs={12} sm={4}>
+          <Typography variant="h6" color="inherit" gutterBottom>
+            JobHive
+          </Typography>
+          <IconButton color="inherit" aria-label="Facebook">
+            <FacebookIcon />
+          </IconButton>
+          <IconButton color="inherit" aria-label="YouTube">
+            <YouTubeIcon />
+          </IconButton>
+          <IconButton color="inherit" aria-label="Twitter">
+            <TwitterIcon />
+          </IconButton>
+          <IconButton color="inherit" aria-label="Pinterest">
+            <PinterestIcon />
+          </IconButton>
+          <IconButton color="inherit" aria-label="Instagram">
+            <InstagramIcon />
+          </IconButton>
         </Grid>
-      </BottomNavigation>
-    </Paper>
+        <Grid item xs={12} sm={4} container spacing={1}>
+          {['Home', 'Pricing', 'Products', 'About Us'].map((text) => (
+            <Grid item xs={6} key={text}>
+              <Link href="#" color="inherit" underline="hover">
+                {text}
+              </Link>
+            </Grid>
+          ))}
+          {['Careers', 'Community', 'Privacy Policy'].map((text) => (
+            <Grid item xs={6} key={text}>
+              <Link href="#" color="inherit" underline="hover">
+                {text}
+              </Link>
+            </Grid>
+          ))}
+        </Grid>
+        <Grid item xs={12} sm={4} container>
+        Copyright 2020. All Rights Reserved
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
-
 export default injectIntl(Footer);

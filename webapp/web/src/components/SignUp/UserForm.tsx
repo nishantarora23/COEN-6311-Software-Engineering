@@ -130,6 +130,17 @@ const RoleForm = ({ page, setPage, formData, setFormData, intl }: Props) => {
                       label={intl.formatMessage({
                         id: `userForm.form.label.${key.id}`,
                       })}
+                      InputLabelProps={{
+                        style: { color: 'black' }, // Change this value to the desired label color
+                      }}
+                      sx={{
+                        '& .MuiOutlinedInput-root': {
+                          
+                          '&.Mui-focused fieldset': {
+                            borderColor: 'black', // Border color when focused
+                          },
+                        },
+                      }}
                       error={error !== undefined}
                       type={key.type}
                       helperText={

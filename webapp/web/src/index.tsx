@@ -14,7 +14,7 @@ const locale = navigator.language;
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#6573c3'
+      main: '#ffffff'
     },
     secondary: {
       main: lightBlue[100]
@@ -24,8 +24,8 @@ const theme = createTheme({
     MuiBottomNavigation: {
       styleOverrides: {
         root: {
-          backgroundColor: '#6573c3',
-          color: 'white'
+          backgroundColor: '#ffffff',
+          color: 'black'
         }
       }
     }
