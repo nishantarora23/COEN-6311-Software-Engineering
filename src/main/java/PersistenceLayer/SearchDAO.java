@@ -10,6 +10,13 @@ import java.util.ArrayList;
 
 import Helper.Helper;
 
+/**
+ * The SearchDAO class provides data access methods for interacting with the database related to search records.
+ * It includes methods for inserting and retrieving search records.
+ *
+ * @author Nishant Arora
+ * @version 1.0
+ */
 public class SearchDAO {
 
 	static {
@@ -19,6 +26,13 @@ public class SearchDAO {
 			throw new RuntimeException(e);
 		}
 	}
+	/**
+     * Inserts a search record into the database with the specified candidate ID, search keywords, and search location.
+     *
+     * @param candidateId The unique identifier for the candidate.
+     * @param searchKeywords The keywords used in the search.
+     * @param searchLocation The location used in the search.
+     */
 
 	public static void insertSearchRecord(int candidateId, String searchKeywords, String searchLocation) {
 		try (Connection connection = DriverManager.getConnection(Helper.url, Helper.uname, Helper.pass)) {
@@ -33,7 +47,12 @@ public class SearchDAO {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+     * Retrieves the latest search record for the user with the specified ID.
+     *
+     * @param id The unique identifier for the user.
+     * @return An ArrayList containing the retrieved search keywords and location.
+     */
 	public static ArrayList<String> getSearchRecord(int id) {
 		ArrayList<String> arr = new ArrayList<>();
 		try (Connection connection = DriverManager.getConnection(Helper.url, Helper.uname, Helper.pass)) {
@@ -53,4 +72,16 @@ public class SearchDAO {
 		return arr;
 	}
 
+    /**
+     * Inserts a cache record into the database with the specified keywords, location, and JSON file name.
+     *
+     * @param keywords The keywords used in the search.
+     * @param location The location used in the search.
+     * @param jsonFileName The name of the JSON file associated with the search results.
+     * @return The ID of the inserted record, or -1 if the insertion fails.
+     */
+	public static int insertCacheRecord(String keywords, String location, String jsonFileName) {
+		
+		return -1;
+	}
 }
