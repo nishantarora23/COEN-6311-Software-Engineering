@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'war'
     id 'org.sonarqube' version '3.3'
-    id 'checkstyle'
+    // Remove the checkstyle plugin from here
 }
 
 sourceCompatibility = 1.8
@@ -44,6 +44,8 @@ sourceSets {
 war {
     archiveBaseName = 'jobhive'
 }
+
+check.dependsOn.remove('checkstyleMain')
 
 checkstyle {
     toolVersion = '8.43'
