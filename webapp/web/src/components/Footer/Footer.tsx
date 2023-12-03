@@ -49,23 +49,23 @@ const Footer = ({ intl }: Props) => {
           </IconButton>
         </Grid>
         <Grid item xs={12} sm={4} container spacing={1}>
-          {['Home', 'Pricing', 'Products', 'About Us'].map((text) => (
+          {/* {['Home', 'Pricing', 'Products', 'About Us'].map((text) => (
             <Grid item xs={6} key={text}>
               <Link href="#" color="inherit" underline="hover">
                 {text}
               </Link>
             </Grid>
-          ))}
-          {['Careers', 'Community', 'Privacy Policy'].map((text) => (
+          ))} */}
+          {/* {['Careers', 'Community', 'Privacy Policy'].map((text) => (
             <Grid item xs={6} key={text}>
               <Link href="#" color="inherit" underline="hover">
                 {text}
               </Link>
             </Grid>
-          ))}
+          ))} */}
         </Grid>
         <Grid item xs={12} sm={4} container>
-        Copyright 2020. All Rights Reserved
+        Copyright 2023. All Rights Reserved
         </Grid>
       </Grid>
     </Box>

@@ -7,11 +7,14 @@ import {
   // SchoolIcon
 } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
-import { getUserName, getUserRole, getFullName, getIsLoggedIn } from '../../services/userInfoService';
+import { getUserName, getUserRole, getFullName, getIsLoggedIn, getUserId } from '../../services/userInfoService';
 import './MenuBar.scss';
 import { indigo } from '@mui/material/colors';
 import Logo from '../../assets/JobHive-logo.png';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { QUICK_CV_URL } from '../../constants';
+
 
 type Props = {
   intl: any;
@@ -33,6 +36,9 @@ const MenuBar = ({ intl, title, noBtn }: Props) => {
   let isLoggedIn = false;
   const userRole = getUserRole();
   isLoggedIn = getIsLoggedIn();
+  const navigate = useNavigate();
+  // let userId = "-1";
+  let userId = getUserId();
   console.log(isLoggedIn)
 
   const MENU_ITEMS = {
@@ -48,13 +54,14 @@ const MenuBar = ({ intl, title, noBtn }: Props) => {
 
   const doLogout = () => {
     localStorage.clear();
+    navigate('/login');
   };
   
   
   
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar component="nav" position="sticky">
+      <AppBar component="nav" position="sticky" style={{boxShadow : "none"}}>
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       {/* Left side - Logo */}
       <Link to="/">
@@ -62,12 +69,22 @@ const MenuBar = ({ intl, title, noBtn }: Props) => {
       </Link>
 
       {/* Right side - Navigation Links and Buttons */}
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-  {isLoggedIn ? (
-    <nav>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+  {userId ? (
+    <nav style={{ boxShadow:'none' }}>
       <StyledLink to="/">Home</StyledLink>
-      <StyledLink to="/about">About</StyledLink>
-      <StyledLink to="/contact">Contact</StyledLink>
+      <StyledLink to="student/home">My Jobs</StyledLink>
+      <StyledLink to="student/profile">Profile</StyledLink>
+      <StyledLink to="student/searchjobs">Search A Job</StyledLink>
+      <StyledLink to="" onClick={() => {
+                  window.open(QUICK_CV_URL, "_blank");
+                }}>
+       Resume Builder
+      </StyledLink>
+      <StyledLink to="/login" onClick={doLogout}>
+        Log Out
+      </StyledLink>
+      
     </nav>
   ) : (
     <>
@@ -80,9 +97,7 @@ const MenuBar = ({ intl, title, noBtn }: Props) => {
     </>
   )}
 </Box>
-    </Toolbar>
-
-        
+    </Toolbar>      
       </AppBar>
     </Box>
   );

@@ -9,6 +9,8 @@ import axios from "axios";
 import { API_URL } from "../../constants";
 import { getFullName, getUserName, getUserId } from "../../services/userInfoService";
 import React from "react";
+import JobCard from "../MyJobs/JobCard";
+import SkeletonLoader from "./SkeletonLoader";
 
 
 // Define interface for the Snackbar state
@@ -27,6 +29,7 @@ export interface JobInfo {
 // Define the JobsList component
 const JobsList = () => {
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [selectedJobInfo, setSelectedJobInfo] = useState<JobInfo>({
     Job_Title: "",
     Company: "",
@@ -49,17 +52,18 @@ const JobsList = () => {
       .then((response) => {
         debugger;
         setJobsList(response.data?? []);
-      
+        setLoading(false); 
         
       })
       .catch((error) => {
         setJobsList([]);
+        setLoading(false); 
         console.log(error);
       });
   }, []);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 3; // You can change this to display more or less items per page
+  const itemsPerPage = 5; // You can change this to display more or less items per page
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -111,62 +115,27 @@ const JobsList = () => {
         </MuiAlert>
       </Snackbar>
       <Box component="div" sx={{ marginTop: "20px" }}>
-        {currentJobs?.length > 0 &&
-          currentJobs.map((jobInfo) => {
-            return (
-              <CardContent
-                key={jobInfo.Job_Title}
-                sx={{
-                  borderBottom: "1px solid #868686",
-                }}
-              >
-                <Typography
-                  color="primary"
-                  sx={{
-                    textTransform: "capitalize",
-                    fontWeight: "600",
-                    fontSize: "1.5rem",
-                  }}
-                >
-                  {jobInfo.Job_Title}
-                </Typography>
-                <Typography
-                  sx={{
-                    textTransform: "capitalize",
-                    fontSize: "1.25rem",
-                  }}
-                >
-                  {jobInfo.Location}
-                </Typography>
-                <Typography
-                  sx={{
-                    textTransform: "capitalize",
-                    fontSize: "1.25rem",
-                    color: "#868686",
-                  }}
-                >
-                  {jobInfo.Company}
-                </Typography>
-                <Box component="div" sx={{ marginTop: "20px" }}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    sx={{ fontSize: "1.1rem" }}
-                    href={ jobInfo.Apply_Link }
-                    target="_blank" 
-                    // onClick={() => {
-                    //   debugger;
-                    //   setSelectedJobInfo(jobInfo);
-                    //   handleOpen();
-                    // }}
-                  >
-                    <TouchApp sx={{ marginRight: "10px" }} /> Apply
-                  </Button>
-                </Box>
-              </CardContent>
-            );
-          })}
-      </Box>
+      {loading ? (
+        /* Display the skeleton loader while loading is true */
+        // Your skeleton loader UI goes here
+        <SkeletonLoader count={5} />
+// Replace with your skeleton loader component
+      ) : (
+        /* Display the job list once loading is false */
+        currentJobs?.length > 0 &&
+        currentJobs.map((jobInfo) => {
+          return (
+            <JobCard
+              jobTitle={jobInfo.Job_Title}
+              jobType={jobInfo.Company}
+              location={jobInfo.Location}
+              apply={jobInfo.Apply_Link}
+              key={jobInfo.Job_Title} // Add a unique key for each job card
+            />
+          );
+        })
+      )}
+    </Box>
       {/* Pagination Controls */}
       {jobsList.length > 0 && (
         <Box component="div" sx={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
@@ -180,72 +149,6 @@ const JobsList = () => {
           />
         </Box>
       )}
-      {/* <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-title"
-        aria-describedby="modal-description"
-      >
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 800,
-            bgcolor: "background.paper",
-            border: "2px solid #000",
-            boxShadow: 24,
-            p: 2,
-            textAlign: "left",
-          }}
-        >
-          <Typography
-            id="modal-title"
-            sx={{
-              fontSize: "1.75rem",
-              fontWeight: "600",
-            }}
-          >
-            {selectedJobInfo?.Job_Title}
-          </Typography>
-          <p id="modal-description">
-            {selectedJobInfo?.Job_Title} . {selectedJobInfo?.Job_Title}
-          </p>
-          <Typography>
-            <Work sx={{ marginTop: "10px", marginRight: "10px" }} />
-            {selectedJobInfo?.Job_Title}
-          </Typography>
-          {selectedJobInfo?.Job_Title && (
-            <Typography
-              sx={{
-                fontSize: "1.1rem",
-                marginTop: "10px",
-              }}
-            >
-              Apply before: {selectedJobInfo?.Job_Title}
-            </Typography>
-          )}
-          <Typography
-            variant="h5"
-            sx={{ marginTop: "20px", marginBottom: "20px" }}
-          >
-            About the job
-          </Typography>
-          <Typography>{selectedJobInfo?.Job_Title}</Typography>
-          <Box component="div" sx={{ float: "right" }}>
-            <Button
-              variant="contained"
-              onClick={() => {
-                // handleEasyApply(selectedJobInfo);
-              }}
-              sx={{ marginRight: "20px" }}
-            >
-              Easy Apply
-            </Button>
-          </Box>
-        </Box>
-      </Modal> */}
     </>
   );
 };

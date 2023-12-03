@@ -56,9 +56,9 @@ const LandingPage = () => {
         }
       };
   return (
-    <Container maxWidth={false} style={{ marginTop: '50px', position: 'relative', width: '100%' }}>
-        <Grid justifyContent="center" style={{ marginTop: '50px', position: 'relative' }}>
-        <Grid justifyContent="center" style={{ marginTop: '50px', position: 'relative' }}>
+    <Container maxWidth={false} style={{ position: 'relative', width: '100%' }}>
+        <Grid justifyContent="center" style={{  position: 'relative' }}>
+        <Grid justifyContent="center" style={{ position: 'relative' }}>
         <CardMedia
             component="img"
             src={LandingPageImage} // Replace with the URL of your desired image
@@ -73,7 +73,7 @@ const LandingPage = () => {
           left: '50%',
           transform: 'translate(-50%, -50%)',
           textAlign: 'center',
-          fontSize: '100px', // Adjust the font size here
+          fontSize: '60px', // Adjust the font size here
           padding: '10px',
           color: 'rgba(255, 255, 255, 0.8)', // Semi-transparent white color
           whiteSpace: 'nowrap',

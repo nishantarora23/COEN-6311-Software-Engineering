@@ -50,9 +50,9 @@ const styles = {
   },
   heading: {
     marginBottom: "15px",
-    color: "#3f51b5",
+    color: "#000000",
     display: "flex",
-    alignItems: "center",
+    alignItems: "left"
   },
   detail: {
     display: "flex",
@@ -327,7 +327,8 @@ const StudentDetails = () => {
         <Box component="div" sx={{ marginTop: "20px", marginLeft: "20px" }}>
           <Typography
             variant="h4"
-            sx={{ textTransform: "capitalize", fontWeight: "bold" }}
+            sx={{ textTransform: "capitalize", fontWeight: "bold",textAlign:"left" }}
+            mb={1}
           >
             {getFullName()}
           </Typography>
@@ -348,163 +349,7 @@ const StudentDetails = () => {
           </Box>
         </Box>
       </CardContent>
-      {/* <Card sx={styles.card}>
-        <Avatar
-          src="https://via.placeholder.com/80" // Replace with actual student photo
-          alt="Student Photo"
-          sx={styles.avatar}
-        />
-        <Typography variant="h6">{studentName}</Typography>
-        <Typography variant="body1">{university}</Typography>
-        <Box sx={styles.detail}>
-          <EventNoteIcon sx={styles.icon} />
-          <Typography variant="body2">Date of Birth: {formattedDOB}</Typography>
-        </Box>
-        <Box sx={styles.detail}>
-          <LocationOnIcon sx={styles.icon} />
-          <Typography variant="body2">{address}</Typography>
-        </Box>
-      </Card> */}
-      {/* <Box component="div" sx={{ float: "right", marginTop: "-10rem" }}>
-        <Typography variant="body1">
-          <Typography
-            sx={{ marginLeft: "12px", fontSize: "1.25rem", fontWeight: "bold" }}
-          >
-            Resume
-          </Typography>
-          <Tooltip title="Upload resume">
-            <IconButton
-              size="large"
-              aria-label="upload resume"
-              sx={{ color: "#9c27b0" }}
-            >
-              <CloudUpload
-                sx={{ fontSize: "2rem" }}
-                onClick={handleResumeUpload}
-              />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Download resume">
-            <IconButton
-              color="primary"
-              size="large"
-              aria-label="download resume"
-            >
-              <CloudDownload
-                sx={{ fontSize: "2rem" }}
-                onClick={handleResumeDownload}
-              />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Delete resume">
-            <IconButton color="error" size="large" aria-label="delete resume">
-              <Delete sx={{ fontSize: "2rem" }} onClick={handleResumeDelete} />
-            </IconButton>
-          </Tooltip>
-        </Typography>
-        <input
-          id="fileInput"
-          className="custom-file-input"
-          type="file"
-          accept=".pdf,.doc,.docx"
-          onChange={handleFileChange}
-          hidden
-        />
-      </Box> */}
-      {/* Career Resources */}
-      {/* <Typography variant="h5" sx={styles.sectionHeading}>
-        <EventNoteIcon sx={styles.icon} />
-        Career Resources
-      </Typography> */}
-      {/* <Typography variant="body1">
-        Check out our interview tips and resume-building guides to boost your
-        job search.
-      </Typography> */}
-
-      {/* Company Spotlights */}
-      {/* <Typography variant="h5" sx={styles.sectionHeading}>
-        <EventNoteIcon sx={styles.icon} />
-        Company Spotlights
-      </Typography> */}
-      {/* <Box sx={styles.cardContainer}>
-        {companySpotlights.map((company) => (
-          <Card key={company.id} sx={styles.card}>
-            <Typography variant="subtitle1">{company.name}</Typography>
-            <Typography variant="body2">{company.description}</Typography>
-          </Card>
-        ))}
-      </Box> */}
-      {/* Featured Workshops and Webinars */}
-      {/* <Typography variant="h5" sx={styles.sectionHeading}>
-        <EventNoteIcon sx={styles.icon} />
-        Featured Workshops and Webinars
-      </Typography> */}
-      {/* <List sx={styles.itemList}>
-        {featuredWorkshopsAndWebinars.map((event) => (
-          <ListItem
-            key={event.id}
-            sx={{ flexBasis: "350px", marginBottom: "10px" }}
-          >
-            <Card
-              sx={styles.card}
-              onClick={() => {
-                window.open(event.url, "_blank");
-              }}
-            >
-              <CardMedia
-                component="img"
-                image={event.image}
-                alt={event.title}
-                sx={styles.media}
-              />
-              <ListItemText
-                primary={event.title}
-                secondary={`Date: ${new Date(event.date).toLocaleDateString(
-                  "en-US",
-                  {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  }
-                )}`}
-              />
-            </Card>
-          </ListItem>
-        ))}
-      </List> */}
-
-      {/* Alumni Success Stories */}
-      {/* <Typography variant="h5" sx={styles.sectionHeading}>
-        <EventNoteIcon sx={styles.icon} />
-        Alumni Success Stories
-      </Typography> */}
-      {/* <Box sx={styles.cardContainer}>
-        {alumniSuccessStories.map((alumni) => (
-          <Card key={alumni.id} sx={styles.card}>
-            <CardMedia
-              component="img"
-              image={alumni.image}
-              alt={alumni.name}
-              sx={styles.media}
-            />
-            <Typography variant="subtitle1" style={{ marginBottom: "5px" }}>
-              {alumni.name}
-            </Typography>
-            <Typography variant="body2" style={{ marginBottom: "5px" }}>
-              {alumni.role} at {alumni.company}
-            </Typography>
-            <Typography variant="body2" style={{ marginBottom: "5px" }}>
-              {alumni.testimonial}
-            </Typography>
-          </Card>
-        ))}
-      </Box> */}
-
-      {/* Career Resources */}
-      {/* (Keep the existing career resources section) */}
-
-      {/* Company Spotlights */}
-      {/* (Keep the existing company spotlights section) */}
+     
       <SkillsAndJobsForm
         formData={formData}
         setFormData={setFormData}
