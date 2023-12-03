@@ -96,7 +96,7 @@ const Education_WorkExp = (props: any) => {
       </div>
 
       <button
-        class="!bg-purple-5 mt-5 mx-auto !text-white-1"
+        class="!bg-grey-5 mt-5 mx-auto !text-white-1"
         onclick={() => {
           let emptyObj = store_name == "education"
             ? { institution: "", qualification: "", time: "" }
@@ -206,7 +206,7 @@ const Skills_Hobbies = (props: any) => {
         </For>
 
         <button
-          class="!bg-purple-5 !text-white-1"
+          class="!bg-grey-5 !text-white-1"
           onclick={() => {
             setStore(store_name, [...store[store_name], ""]);
           }}
@@ -257,7 +257,7 @@ const Oss = () => (
     </div>
 
     <button
-      class="!bg-purple-5 mt-5 mx-auto !text-white-1"
+      class="!bg-grey-5 mt-5 mx-auto !text-white-1"
       onclick={() => {
         setStore("oss", [...store.oss, {
           "project name": "",

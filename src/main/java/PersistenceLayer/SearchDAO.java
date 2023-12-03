@@ -19,13 +19,6 @@ import Helper.Helper;
  */
 public class SearchDAO {
 
-	static {
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException(e);
-		}
-	}
 	/**
      * Inserts a search record into the database with the specified candidate ID, search keywords, and search location.
      *
@@ -35,7 +28,8 @@ public class SearchDAO {
      */
 
 	public static void insertSearchRecord(int candidateId, String searchKeywords, String searchLocation) {
-		try (Connection connection = DriverManager.getConnection(Helper.url, Helper.uname, Helper.pass)) {
+		try {
+			Connection connection = DatabaseInstance.getDatabaseConnection();
 			String sql = "INSERT INTO SEARCH (USER_ID, SEARCH_KEYWORD, SEARCH_LOCATION) VALUES (?, ?,?);";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setInt(1, candidateId);
@@ -55,7 +49,8 @@ public class SearchDAO {
      */
 	public static ArrayList<String> getSearchRecord(int id) {
 		ArrayList<String> arr = new ArrayList<>();
-		try (Connection connection = DriverManager.getConnection(Helper.url, Helper.uname, Helper.pass)) {
+		try {
+			Connection connection = DatabaseInstance.getDatabaseConnection();
 			String sql = "SELECT * FROM SEARCH WHERE USER_ID = ? ORDER BY SEARCH_TIMESTAMP DESC LIMIT 1;";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setInt(1, id);
