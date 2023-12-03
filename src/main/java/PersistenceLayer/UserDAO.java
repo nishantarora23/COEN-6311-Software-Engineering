@@ -15,17 +15,8 @@ import Helper.Helper;
  * @version 1.0
  */
 public class UserDAO {
-
-	// Insert user data into the users table
-	private static String GET_USER_QUERY = "SELECT * FROM COEN6311.USERS WHERE USERNAME = ? AND PASSWORD = ?";
-	static {
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException(e);
-		}
-	}
-	  /**
+	
+	/**
      * Adds a new user to the database with the provided user information.
      *
      * @param user The user object containing user information.
@@ -33,7 +24,8 @@ public class UserDAO {
      * @throws SQLException If a SQL exception occurs during the database operation.
      */
 	public static int addUser(User user) throws SQLException {
-		try (Connection connection = DriverManager.getConnection(Helper.url, Helper.uname, Helper.pass)) {
+		try {
+			Connection connection = DatabaseInstance.getDatabaseConnection();
 			String sql = "INSERT INTO COEN6311.USERS (FULLNAME, USERNAME, PASSWORD, EMAIL, DOB, ADDRESS, CITY, PROVINCE, COUNTRY) " +
 					"VALUES (?, ?, ?, ?, ?, ?,?,?,?)";
 			// Use the additional argument to retrieve the auto-generated ID
@@ -74,7 +66,9 @@ public class UserDAO {
      */
 	public static User getUser(String username, String password){
 		User user = null;
-		try (Connection connection = DriverManager.getConnection(Helper.url, Helper.uname, Helper.pass)) {
+		String GET_USER_QUERY = "SELECT * FROM COEN6311.USERS WHERE USERNAME = ? AND PASSWORD = ?";
+		try {
+			Connection connection = DatabaseInstance.getDatabaseConnection();
 			PreparedStatement statement = connection.prepareStatement(GET_USER_QUERY);
 			statement.setString(1, username);
 			statement.setString(2, password);
@@ -111,8 +105,8 @@ public class UserDAO {
      * @throws SQLException If a SQL exception occurs during the database operation.
      */
 	public static int updateUser(User user, int userID) throws SQLException {
-	    try (Connection connection = DriverManager.getConnection(Helper.url, Helper.uname, Helper.pass)) {
-	        // Define the SQL UPDATE statement
+	    try {
+	    	Connection connection = DatabaseInstance.getDatabaseConnection();
 	        String sql = "UPDATE COEN6311.USERS SET ";
 	        boolean hasUpdates = false; // Flag to track if any updates were made
 
