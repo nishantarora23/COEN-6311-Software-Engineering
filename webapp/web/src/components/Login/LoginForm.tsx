@@ -36,8 +36,12 @@ const LoginForm = ({ formData, setFormData, intl }: Props) => {
           debugger;
           if (response.status === 200) {
             setUserInfo(response?.data);
-            setIsLoggedIn(true);
-            navigate(`/student/home`);
+            if(response.data === null){setLoginError(true)}
+            else{
+              setIsLoggedIn(true);
+              navigate(`/student/home`);
+            }
+            
           } else {
             setLoginError(true);
           }

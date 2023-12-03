@@ -39,7 +39,7 @@ const RoleForm = ({ page, setPage, formData, setFormData, intl }: Props) => {
       type: "email",
       rules: {
         required: true,
-        pattern: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+        pattern: /^[^@\s]+@[^@\s]+\.[^@\s]+$/,
       },
     },
     {

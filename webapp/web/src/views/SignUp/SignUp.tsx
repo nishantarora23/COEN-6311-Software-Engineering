@@ -65,13 +65,7 @@ const SignUp = ({ intl }: Props) => {
       await setLoading(true);
       await createUser(formData)
         .then((res) => {
-          <AppSnackbar
-          type="error"
-          message={intl.formatMessage({
-            id: "userForm.createUser.error",
-          })}
-          open={isError}
-        />
+          
           navigate("/login", { state: { ...res.data } });
         })
         .catch((err) => {
@@ -90,6 +84,7 @@ const SignUp = ({ intl }: Props) => {
 
   return (
     <>
+    {isError && (
       <AppSnackbar
         type="error"
         message={intl.formatMessage({
@@ -97,6 +92,7 @@ const SignUp = ({ intl }: Props) => {
         })}
         open={isError}
       />
+      )}
       {/* <MenuBar
         title={intl.formatMessage({ id: "global.app_title" })}
         noBtn={true}
