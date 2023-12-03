@@ -66,7 +66,7 @@ const SkillsAndJobsForm = ({ formData, setFormData, intl }: Props) => {
 
   return (
     <Grid container className="form-card" spacing={2}>
-      <Grid item xs={12}>
+      {/* <Grid item xs={12}>
         <Controller
           name="skills"
           control={control}
@@ -120,7 +120,7 @@ const SkillsAndJobsForm = ({ formData, setFormData, intl }: Props) => {
             id: "skillsForm.button.submit",
           })}
         </Button>
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 };

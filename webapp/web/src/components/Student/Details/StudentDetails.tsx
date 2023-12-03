@@ -47,6 +47,7 @@ const styles = {
     // borderRadius: "10px",
     // boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
     margin: "0 auto",
+    height:'600px'
   },
   heading: {
     marginBottom: "15px",
@@ -347,6 +348,7 @@ const StudentDetails = () => {
             <LocationOnIcon sx={styles.icon} />
             <Typography variant="body2">{getUserInfo("address")}</Typography>
           </Box>
+          
         </Box>
       </CardContent>
      
