@@ -23,6 +23,19 @@
       display: flex;
       align-items: center;
 
+      .checkbox-custom {
+        width: 20px;
+        height: 20px;
+        // border: 1px solid black;
+        border-radius: 0!important;
+        // background-color: #f1f1f1 /* Light grey background */
+      }
+
+      /* Style for the checked state */
+      &.Mui-checked {
+        background-color: #4CAF50; // Example: Background color when checked
+      }
+
       .error-text {
         color: $red-02;
       }

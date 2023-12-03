@@ -65,7 +65,14 @@ const SignUp = ({ intl }: Props) => {
       await setLoading(true);
       await createUser(formData)
         .then((res) => {
-          navigate("/", { state: { ...res.data } });
+          <AppSnackbar
+          type="error"
+          message={intl.formatMessage({
+            id: "userForm.createUser.error",
+          })}
+          open={isError}
+        />
+          navigate("/login", { state: { ...res.data } });
         })
         .catch((err) => {
           setPage(page - 1);

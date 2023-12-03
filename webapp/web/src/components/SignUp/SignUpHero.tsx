@@ -44,7 +44,7 @@ const SignUpHero = () => {
           ))}
         </List>
         <Typography variant="body1" sx={{ m: 2 }}>
-          Don't have an account yet? It's easy! <Button color="primary">Create an account now.</Button>
+          Don't have an account yet? It's easy!
         </Typography>
       </Grid>
       <Grid xs={12} sm={2}></Grid>

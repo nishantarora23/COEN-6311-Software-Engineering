@@ -24,7 +24,7 @@ const Footer = ({ intl }: Props) => {
         width: '100%',
         backgroundColor: 'hsl(232.5deg 12.12% 12.94%)', // Customize the color using theme
         color: 'white',
-        py: 8, // Padding top & bottom
+        py: 1, // Padding top & bottom
       }}
     >
       <Grid container spacing={2} justifyContent="space-around" alignItems="center">

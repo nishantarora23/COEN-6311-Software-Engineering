@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid, Typography, Button, List, ListItem } from '@mui/material';
 import { makeStyles, styled } from '@mui/material/styles';
 import LoginSide from '../../assets/loginSide.png'
+import { Link } from 'react-router-dom';
 
 
 
@@ -44,7 +45,11 @@ const LoginHero = () => {
           ))}
         </List>
         <Typography variant="body1" sx={{ m: 2 }}>
-          Don't have an account yet? It's easy! <Button color="primary">Create an account now.</Button>
+          Don't have an account yet? It's easy! 
+          <Button color="primary">
+            <Link style={{ color:"white", textDecoration:"none"}}to="/signup">Create an account now</Link>
+          </Button>
+          
         </Typography>
       </Grid>
       <Grid xs={12} sm={2}></Grid>
