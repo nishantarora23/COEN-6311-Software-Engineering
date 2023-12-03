@@ -28,10 +28,11 @@ public class SearchDAO {
      */
 
 	public static void insertSearchRecord(int candidateId, String searchKeywords, String searchLocation) {
+		PreparedStatement preparedStatement = null;
 		try {
 			Connection connection = DatabaseInstance.getDatabaseConnection();
 			String sql = "INSERT INTO SEARCH (USER_ID, SEARCH_KEYWORD, SEARCH_LOCATION) VALUES (?, ?,?);";
-			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setInt(1, candidateId);
 			preparedStatement.setString(2, searchKeywords);
 			preparedStatement.setString(3, searchLocation);
@@ -39,6 +40,17 @@ public class SearchDAO {
 			System.out.println("Inserted " + rowsAffected + " record(s) successfully.");
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+		finally {
+			if(preparedStatement!=null) {
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
 		}
 	}
 	/**
@@ -49,10 +61,11 @@ public class SearchDAO {
      */
 	public static ArrayList<String> getSearchRecord(int id) {
 		ArrayList<String> arr = new ArrayList<>();
+		PreparedStatement preparedStatement = null;
 		try {
 			Connection connection = DatabaseInstance.getDatabaseConnection();
 			String sql = "SELECT * FROM SEARCH WHERE USER_ID = ? ORDER BY SEARCH_TIMESTAMP DESC LIMIT 1;";
-			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setInt(1, id);
 
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -63,6 +76,17 @@ public class SearchDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+		finally {
+			if(preparedStatement!=null) {
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
 		}
 		return arr;
 	}

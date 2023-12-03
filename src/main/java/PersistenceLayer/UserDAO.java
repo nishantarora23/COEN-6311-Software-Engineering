@@ -4,7 +4,7 @@ import Models.User;
 
 import java.sql.*;
 import java.text.ParseException;
-import java.sql.ResultSet;
+
 import Helper.Helper;
 
 /**
@@ -26,10 +26,11 @@ public class UserDAO {
 	public static int addUser(User user) throws SQLException {
 		try {
 			Connection connection = DatabaseInstance.getDatabaseConnection();
+			PreparedStatement statement = null;
 			String sql = "INSERT INTO COEN6311.USERS (FULLNAME, USERNAME, PASSWORD, EMAIL, DOB, ADDRESS, CITY, PROVINCE, COUNTRY) " +
 					"VALUES (?, ?, ?, ?, ?, ?,?,?,?)";
 			// Use the additional argument to retrieve the auto-generated ID
-			PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, user.getFullName());
 			statement.setString(2, user.getUsername());
 			statement.setString(3, user.getPassword());
@@ -66,10 +67,11 @@ public class UserDAO {
      */
 	public static User getUser(String username, String password){
 		User user = null;
+		PreparedStatement statement = null;
 		String GET_USER_QUERY = "SELECT * FROM COEN6311.USERS WHERE USERNAME = ? AND PASSWORD = ?";
 		try {
 			Connection connection = DatabaseInstance.getDatabaseConnection();
-			PreparedStatement statement = connection.prepareStatement(GET_USER_QUERY);
+			statement = connection.prepareStatement(GET_USER_QUERY);
 			statement.setString(1, username);
 			statement.setString(2, password);
 			ResultSet resultSet = statement.executeQuery();
@@ -92,7 +94,17 @@ public class UserDAO {
 		} catch (SQLException | ParseException e) {
 			e.printStackTrace();
 		}
-
+		finally {
+			if(statement!=null) {
+				try {
+					statement.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+		}
 		return user;
 	}
 	 /**
@@ -105,6 +117,7 @@ public class UserDAO {
      * @throws SQLException If a SQL exception occurs during the database operation.
      */
 	public static int updateUser(User user, int userID) throws SQLException {
+		PreparedStatement statement = null;
 	    try {
 	    	Connection connection = DatabaseInstance.getDatabaseConnection();
 	        String sql = "UPDATE COEN6311.USERS SET ";
@@ -155,7 +168,7 @@ public class UserDAO {
 	        // Add the WHERE clause to specify the user to update based on userID
 	        sql += " WHERE ID = ?";
 
-	        PreparedStatement statement = connection.prepareStatement(sql);
+	        statement = connection.prepareStatement(sql);
 	        
 	        // Set the updated column values
 	        int parameterIndex = 1;
@@ -194,5 +207,16 @@ public class UserDAO {
 	        e.printStackTrace();
 	        return -1; // Indicate that an exception occurred
 	    }
+	    finally {
+			if(statement!=null) {
+				try {
+					statement.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+		}
 	}
 }
