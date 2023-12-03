@@ -61,7 +61,7 @@ const WorkExp = () => (
       <Icon
         icon="uil:suitcase"
         width="25"
-        class="bg-purple-1 rounded-full dark:bg-black-3 dark:text-purple-3 p-[0.3rem]"
+        class="bg-grey-1 rounded-full dark:bg-black-3 dark:text-white-3 p-[0.3rem]"
       />
       Work Experience :
     </div>

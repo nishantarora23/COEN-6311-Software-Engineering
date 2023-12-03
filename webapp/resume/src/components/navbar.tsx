@@ -12,7 +12,7 @@ const DownloadBtns = () => (
     <button p-2 onclick={() => showFormat(!formatsShown())}>
       <Icon
         icon="material-symbols:download"
-        class="bg-purple-5 text-white-1 p-1 rounded-full"
+        class="bg-grey-5 text-white-1 p-1 rounded-full"
       />
 
       {selectedFormat()}
@@ -56,11 +56,10 @@ const Navbar = () => {
       p="y-2 b-5 md:y-5 md:t-2"
     >
       {/* Branding */}
-      <h3 vertCentered text="purple-7 dark:purple-5" class="text-2xl my-0">
-        {/* <img w-6 src="/logo.png" /> */}
-        Resume <span text-2xl text-slate-7 dark:text-white-3>Builder</span>
+      <h3>
+        <img class="w-45" src="/logo.png" /> 
+        
       </h3>
-
       <div vertCentered>
         <button
           aria-label="theme toggler"
