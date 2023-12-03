@@ -205,7 +205,7 @@ const handleSearch = () => {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    minHeight: '400px', // Set the desired height
+    minHeight: '450px', // Set the desired height
     borderRadius: '8px', // Rounded corners
     padding: '20px', // Add some padding
   }}

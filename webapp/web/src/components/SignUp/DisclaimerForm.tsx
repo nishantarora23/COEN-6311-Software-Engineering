@@ -73,7 +73,9 @@ const DisclaimerForm = ({
               <Grid item className="disclaimer-checkbox-container">
                 <Checkbox
                   {...props}
+                  className="checkbox-custom"
                   checked={props.value}
+                  sx={{ '& .MuiSvgIcon-root': { fill: 'black' } }}
                   onChange={(e) => props.onChange(e.target.checked)}
                 />
                 <Typography

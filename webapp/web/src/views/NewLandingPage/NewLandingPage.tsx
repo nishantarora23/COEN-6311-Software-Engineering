@@ -63,7 +63,7 @@ const LandingPage = () => {
             component="img"
             src={LandingPageImage} // Replace with the URL of your desired image
             alt="Your Image Description"
-            style={{ maxWidth: '100%', height: 'auto', borderRadius: '40px', position: 'relative' }}
+            style={{ maxWidth: '100%', height: '700px', borderRadius: '40px', position: 'relative' }}
         />
       <Typography
         variant="h5"

@@ -3,10 +3,15 @@ import LoginForm from "../../components/Login/LoginForm";
 import { useMemo, useState } from "react";
 import img from "../../assets/logo.png";
 import "./Login.scss";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import LoginHero from "../../components/Login/LoginHero";
+import AppSnackbar from "../../components/AppSnackbar/AppSnackbar";
 
 const Login = () => {
+  window.history.replaceState({}, document.title);
+
+  const location = useLocation();
+  const createdUserId = location.state?.id;
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -26,7 +31,14 @@ const Login = () => {
       <Card
         style={{ padding: "10px 40px" }}
       >
-       
+        {createdUserId && (
+        <AppSnackbar
+          type="success"
+          message="You Are registered Succusfully"
+          open={true}
+        />
+      )}
+
         {/* <img src={img} className="logo" height="280" width="350" /> */}
         {loginPage}
         
