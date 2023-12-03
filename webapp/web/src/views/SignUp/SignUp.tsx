@@ -98,12 +98,12 @@ const SignUp = ({ intl }: Props) => {
       <Grid container className="sign-up-container">
         <LoadingSpinner isOpen={loading} />
         <Grid container justifyContent="left">
-          <Button component={Link} to={"/"}>
+          {/* <Button component={Link} to={"/"}>
             <ArrowLeftIcon />
             {intl.formatMessage({
               id: "global.back_to_home",
             })}
-          </Button>
+          </Button> */}
         </Grid>
         {signUpPages[page]}
       </Grid>

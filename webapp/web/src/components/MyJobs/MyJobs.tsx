@@ -1,14 +1,20 @@
 import { injectIntl } from "react-intl";
-import { Box, Button, CardContent, Modal, Typography, Pagination } from "@mui/material";
+import { Box, Button, CardContent, Modal, Typography, Pagination, IconButton } from "@mui/material";
 
 import { TouchApp, Work } from "@mui/icons-material";
 import { useState, useEffect } from "react";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertColor } from "@mui/material/Alert";
+import InfoIcon from '@mui/icons-material/Info';
+import SearchIcon from '@mui/icons-material/Search';
+
 import axios from "axios";
 import { API_URL } from "../../constants";
 import { getUserId } from "../../services/userInfoService";
 import React from "react";
+import WarningIcon from '@mui/icons-material/Warning';
+import JobCard from "./JobCard";
+import SkeletonLoader from "../Jobs/SkeletonLoader";
 
 
 // Define interface for the Snackbar state
@@ -28,6 +34,7 @@ export interface JobInfo {
 const JobsList = () => {
   const [open, setOpen] = useState(false);
   const [titleSearch, setTitleSearch] = useState("");
+  const [isResponseReceived, setIsisResponseReceived] = useState(false);
 const [companySearch, setCompanySearch] = useState("");
 
   const [selectedJobInfo, setSelectedJobInfo] = useState<JobInfo>({
@@ -55,6 +62,7 @@ const handleCompanySearchChange = (event: React.ChangeEvent<HTMLInputElement>) =
 
 const handleSearch = () => {
   if (titleSearch.trim() && companySearch.trim()) {
+    setLoading(true)
   axios
   .post(`${API_URL}/search`, {
     id: getUserId(), 
@@ -63,9 +71,13 @@ const handleSearch = () => {
   })
     .then((response) => {
       setJobsList(response.data?? []);
+      setLoading(false)
+      setIsisResponseReceived(true)
     })
     .catch((error) => {
       setJobsList([]);
+      setLoading(false)
+      setIsisResponseReceived(true)
       console.log(error);
     });
   }else{
@@ -96,9 +108,9 @@ const handleSearch = () => {
     //     console.log(error);
     //   });
   }, []);
-
+  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 3; // You can change this to display more or less items per page
+  const itemsPerPage = 5; // You can change this to display more or less items per page
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -108,129 +120,126 @@ const handleSearch = () => {
   const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
   };
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-  // Handle easy apply for a job
-  // const handleEasyApply = (payload: JobInfo) => {
-  //   const objectPayload = {
-  //     jobid: payload.id,
-  //     username: getUserName(),
-  //     applicant: getFullName(),
-  //     ACTION: "ADD",
-  //   };
-  //   axios
-  //     .post(`${API_URL}/application`, objectPayload)
-  //     .then(() => {
-  //       setEasyApplyResponseSnackbar({
-  //         open: true,
-  //         severity: "success",
-  //         message: "Applied for job sucessfully.",
-  //       });
-  //     })
-  //     .catch(() => {
-  //       setEasyApplyResponseSnackbar({
-  //         open: true,
-  //         severity: "error",
-  //         message: "Upload your resume to apply for jobs!",
-  //       });
-  //     });
-  // };
-  // Render the JobsList component UI
+  
   return (
-    <>
+    <Box component="div" sx={{ margin: "20px" }}>
       <Snackbar open={easyApplyResponseSnackbar.open} autoHideDuration={3000}>
         <MuiAlert severity={easyApplyResponseSnackbar.severity}>
           {easyApplyResponseSnackbar.message}
         </MuiAlert>
       </Snackbar>
 
-      <Box component="div" sx={{ marginBottom: "20px", display: "flex", justifyContent: "space-between" }}>
+      <Box component="div" sx={{
+    marginBottom: "20px", 
+    display: "flex", 
+    justifyContent: "space-between", 
+    alignItems: "center", // Align items vertically
+    background: "#e8f4f8", // Adjust the background color to match your theme
+    padding: "20px" // Add some padding around the box
+}}>
     <input 
         type="text"
-        placeholder="Job title, keywords, or company"
+        placeholder="Job title, company, or keywords"
         value={titleSearch}
         onChange={handleTitleSearchChange}
-        style={{ width: "40%", padding: "10px", fontSize: "1rem", marginRight: "10px" }}
+        style={{ 
+            flexGrow: 1, // Allow the input to grow
+            padding: "20px", 
+            fontSize: "1rem", 
+            border: "1px solid #ccc", // Add a subtle border
+            borderRight:"none",
+            boxShadow: "inset 0 1px 3px rgba(0, 0, 0, 0.1)" // Inner shadow for inset effect
+        }}
     />
     <input 
         type="text"
-        placeholder="City, province, or remote"
+        placeholder="City or Province"
         value={companySearch}
         onChange={handleCompanySearchChange}
-        style={{ width: "40%", padding: "10px", fontSize: "1rem", marginRight: "10px" }}
+        style={{ 
+            flexGrow: 1, // Allow the input to grow
+            marginRight: "10px",
+            padding: "20px",
+            fontSize: "1rem", 
+            border: "1px solid #ccc", // Add a subtle border
+            boxShadow: "inset 0 1px 3px rgba(0, 0, 0, 0.1)" // Inner shadow for inset effect
+        }}
     />
     <Button
         variant="contained"
-        color="primary"
+        style={{
+            backgroundColor: "#007bff", // Match the button color with your theme
+            color: "white", // Text color
+            textTransform: "none", // Avoid capitalizing all letters
+            padding: "10px 20px", // Increase padding
+            fontSize: "1rem", // Match font size with inputs
+            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)" // Add a subtle shadow
+        }}
         onClick={handleSearch}
     >
-        Find Jobs
+        Search Jobs
     </Button>
 </Box>
 
-      <Box component="div" sx={{ marginTop: "20px" }}>
-        {currentJobs?.length > 0 &&
-          currentJobs.map((jobInfo) => {
-            return (
-              <CardContent
-                key={jobInfo.Job_Title}
-                sx={{
-                  borderBottom: "1px solid #868686",
-                }}
-              >
-                <Typography
-                  color="primary"
-                  sx={{
-                    textTransform: "capitalize",
-                    fontWeight: "600",
-                    fontSize: "1.5rem",
-                  }}
-                >
-                  {jobInfo.Job_Title}
-                </Typography>
-                <Typography
-                  sx={{
-                    textTransform: "capitalize",
-                    fontSize: "1.25rem",
-                  }}
-                >
-                  {jobInfo.Location}
-                </Typography>
-                <Typography
-                  sx={{
-                    textTransform: "capitalize",
-                    fontSize: "1.25rem",
-                    color: "#868686",
-                  }}
-                >
-                  {jobInfo.Company}
-                </Typography>
-                <Box component="div" sx={{ marginTop: "20px" }}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    sx={{ fontSize: "1.1rem" }}
-                    href={ jobInfo.Apply_Link }
-                    target="_blank" 
-                    // onClick={() => {
-                    //   debugger;
-                    //   setSelectedJobInfo(jobInfo);
-                    //   handleOpen();
-                    // }}
-                  >
-                    <TouchApp sx={{ marginRight: "10px" }} /> Apply
-                  </Button>
-                </Box>
-              </CardContent>
-            );
-          })}
-      </Box>
+
+<Box component="div" sx={{ marginTop: "20px", minHeight:"400px" }}>
+{loading ? (
+  // Your skeleton loader UI goes here
+  // Replace with your skeleton loader component
+  <SkeletonLoader count={5} />
+) : (
+  <>
+    {currentJobs?.length > 0 ? (
+      currentJobs.map((jobInfo) => (
+        <JobCard
+          jobTitle={jobInfo.Job_Title}
+          jobType={jobInfo.Company}
+          location={jobInfo.Location}
+          apply={jobInfo.Apply_Link}
+        />
+      ))
+    ) : (
+      <Box
+  sx={{
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: '400px', // Set the desired height
+    borderRadius: '8px', // Rounded corners
+    padding: '20px', // Add some padding
+  }}
+>
+  {isResponseReceived ? (
+    <>
+      <>
+    <IconButton color="info" aria-label="info">
+      <InfoIcon fontSize="large" />
+    </IconButton>
+    {/* Error message */}
+  </>
+      <Typography variant="h6" color="textPrimary" align="center" mt={2}>
+        There are no jobs matching your search criteria. Please refine your search.
+      </Typography>
+    </>
+  ) : (
+    <>
+       <IconButton color="primary" aria-label="search">
+      <SearchIcon fontSize="large" />
+    </IconButton>
+      <Typography variant="h6" color="textPrimary" align="center" mt={2}>
+        You have not performed a search yet. Please fill in the details to see the available jobs.
+      </Typography>
+    </>
+  )}
+</Box>
+
+    )}
+  </>
+)}
+
+</Box>
+
       {/* Pagination Controls */}
       {jobsList.length > 0 && (
         <Box component="div" sx={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
@@ -244,73 +253,7 @@ const handleSearch = () => {
           />
         </Box>
       )}
-      {/* <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-title"
-        aria-describedby="modal-description"
-      >
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 800,
-            bgcolor: "background.paper",
-            border: "2px solid #000",
-            boxShadow: 24,
-            p: 2,
-            textAlign: "left",
-          }}
-        >
-          <Typography
-            id="modal-title"
-            sx={{
-              fontSize: "1.75rem",
-              fontWeight: "600",
-            }}
-          >
-            {selectedJobInfo?.Job_Title}
-          </Typography>
-          <p id="modal-description">
-            {selectedJobInfo?.Job_Title} . {selectedJobInfo?.Job_Title}
-          </p>
-          <Typography>
-            <Work sx={{ marginTop: "10px", marginRight: "10px" }} />
-            {selectedJobInfo?.Job_Title}
-          </Typography>
-          {selectedJobInfo?.Job_Title && (
-            <Typography
-              sx={{
-                fontSize: "1.1rem",
-                marginTop: "10px",
-              }}
-            >
-              Apply before: {selectedJobInfo?.Job_Title}
-            </Typography>
-          )}
-          <Typography
-            variant="h5"
-            sx={{ marginTop: "20px", marginBottom: "20px" }}
-          >
-            About the job
-          </Typography>
-          <Typography>{selectedJobInfo?.Job_Title}</Typography>
-          <Box component="div" sx={{ float: "right" }}>
-            <Button
-              variant="contained"
-              onClick={() => {
-                // handleEasyApply(selectedJobInfo);
-              }}
-              sx={{ marginRight: "20px" }}
-            >
-              Easy Apply
-            </Button>
-          </Box>
-        </Box>
-      </Modal> */}
-    </>
+  </Box>
   );
 };
 

@@ -94,7 +94,7 @@ const StudentHome = () => {
 
   return (
     <>
-      <Grid
+      {/* <Grid
         container
         className="userProfile-container end-container"
         sx={{
@@ -135,8 +135,8 @@ const StudentHome = () => {
             }}
           />
         </IconButton>
-      </Grid>
-      <Grid
+      </Grid> */}
+      {/* <Grid
         container
         spacing={1}
         sx={{
@@ -151,8 +151,7 @@ const StudentHome = () => {
               margin: "25px",
               padding: "15px",
               borderRadius: "10px",
-              border: "1px solid #c4c4c4",
-              height: "calc(100vh - 350px)",
+              border: "1px solid #c4c4c4"
             }}
           >
              <div className="menus">
@@ -249,7 +248,7 @@ const StudentHome = () => {
                 </MuiAlert>
               </Snackbar>
             </div> */}
-          </Card>
+          {/* </Card>
         </Grid>
         <Grid item xs={12} sm={6} md={7} lg={9}>
           <Card
@@ -310,7 +309,7 @@ const StudentHome = () => {
             )}
           </Card>
         </Grid>
-      </Grid>
+      </Grid> */}
     </>
   );
 };

@@ -74,18 +74,18 @@ export default function FeatureGrid() {
   
   const [features, setFeatures] = useState(initialFeatures);
   const [currentIndex, setCurrentIndex] = useState(0);
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const nextIndex = (currentIndex + 1) % features.length;
-      setFeatures((prevFeatures) => [
-        ...prevFeatures.slice(nextIndex),
-        ...prevFeatures.slice(0, nextIndex),
-      ]);
-      setCurrentIndex(nextIndex);
-    }, 1500); // Change the interval duration (in milliseconds) as needed
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     const nextIndex = (currentIndex + 1) % features.length;
+  //     setFeatures((prevFeatures) => [
+  //       ...prevFeatures.slice(nextIndex),
+  //       ...prevFeatures.slice(0, nextIndex),
+  //     ]);
+  //     setCurrentIndex(nextIndex);
+  //   }, 1500); // Change the interval duration (in milliseconds) as needed
 
-    return () => clearInterval(interval);
-  }, [currentIndex, features]);
+  //   return () => clearInterval(interval);
+  // }, [currentIndex, features]);
   return (
  
     <Grid container spacing={2} style={style.gridContainer}>

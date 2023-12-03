@@ -28,7 +28,35 @@ const theme = createTheme({
           color: 'black'
         }
       }
-    }
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#1d1e25!important',
+          color: 'white!important',
+          borderColor:'#1d1e25!important',
+          padding:'10px 10px',
+          textTransform:'capitalize'
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          '& label': {
+            color: 'black', // Change label color
+          },
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+              borderColor: 'black', // Border color
+            },
+            '&.Mui-focused fieldset': {
+              borderColor: 'black', // Border color when focused
+            },
+          },
+        },
+      },
+    },
   },
   typography: {
     h1: {
