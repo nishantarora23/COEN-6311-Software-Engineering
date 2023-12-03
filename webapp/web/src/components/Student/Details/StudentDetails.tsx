@@ -39,7 +39,7 @@ import success from "../../../assets/success.jpeg";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "../../../constants";
-import SkillsAndJobsForm from './SkillsAndJobsForm';
+// import SkillsAndJobsForm from './SkillsAndJobsForm';
 
 const styles = {
   container: {
@@ -352,11 +352,11 @@ const StudentDetails = () => {
         </Box>
       </CardContent>
      
-      <SkillsAndJobsForm
+      {/* <SkillsAndJobsForm
         formData={formData}
         setFormData={setFormData}
-        // `intl` prop will be provided automatically by the `injectIntl` HOC
-      />
+        
+      /> */}
     </Box>
   );
 };

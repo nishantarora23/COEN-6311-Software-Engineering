@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { injectIntl } from "react-intl";
-import { Button, Grid, TextField } from "@mui/material";
-import { Controller, useForm } from "react-hook-form";
+import {  Grid, TextField } from "@mui/material";
+import {  useForm } from "react-hook-form";
 import "./Details.scss";
-import axios from "axios";
-import LoadingSpinner from "../../common/LoadingSpinner/LoadingSpinner";
+// import axios from "axios";
+// import LoadingSpinner from "../../common/LoadingSpinner/LoadingSpinner";
 import AppSnackbar from "../../AppSnackbar/AppSnackbar";
 import { API_URL } from "../../../constants";
 import { getUserId } from "../../../services/userInfoService";
@@ -22,47 +22,47 @@ const SkillsAndJobsForm = ({ formData, setFormData, intl }: Props) => {
       location: formData.location,
     },
   });
-  const [loading, setLoading] = useState(false);
-  const [isLoginError, setLoginError] = useState(false);
-  const userId = getUserId();
-  const onSubmit = async (data: any) => {
-  const additionalData = {
-      id: userId
-  };
-      setFormData({ ...formData, ...data });  
-      // Define the API endpoint
-      const endpoint = `${API_URL}/skills`;     
-      try {
-        const response = await fetch(endpoint, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ ...formData, ...data, ...additionalData }),
-        });    
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        // Handle the response data
-        const result = await response.json();
-        <AppSnackbar
-        type="success"
-        message={intl.formatMessage({
-          id: 'skillsForm.submit.success'
-        })}
-        open={true}
-      />
-      } catch (error) {
-        console.error('There was an error!', error);
-        <AppSnackbar
-        type="error"
-        message={intl.formatMessage({
-          id: 'skillsForm.submit.success'
-        })}
-        open={true}
-      />
-      }
-  };
+  // const [loading, setLoading] = useState(false);
+  // const [isLoginError, setLoginError] = useState(false);
+  // const userId = getUserId();
+  // const onSubmit = async (data: any) => {
+  // const additionalData = {
+  //     id: userId
+  // };
+  //     setFormData({ ...formData, ...data });  
+  //     // Define the API endpoint
+  //     const endpoint = `${API_URL}/skills`;     
+  //     try {
+  //       const response = await fetch(endpoint, {
+  //         method: 'POST',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify({ ...formData, ...data, ...additionalData }),
+  //       });    
+  //       if (!response.ok) {
+  //         throw new Error(`HTTP error! status: ${response.status}`);
+  //       }
+  //       // Handle the response data
+  //       const result = await response.json();
+  //       <AppSnackbar
+  //       type="success"
+  //       message={intl.formatMessage({
+  //         id: 'skillsForm.submit.success'
+  //       })}
+  //       open={true}
+  //     />
+  //     } catch (error) {
+  //       console.error('There was an error!', error);
+  //       <AppSnackbar
+  //       type="error"
+  //       message={intl.formatMessage({
+  //         id: 'skillsForm.submit.success'
+  //       })}
+  //       open={true}
+  //     />
+  //     }
+  // };
 
   return (
     <Grid container className="form-card" spacing={2}>

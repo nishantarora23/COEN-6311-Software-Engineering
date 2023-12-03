@@ -16,10 +16,10 @@ const RecommandationJobs = () => {
                       fontWeight: "600",
                     }}
                   >
-                    Still Hiring
+                    Jobs recommendations
                   </Typography>
                   <Typography sx={{ color: "#868686" }}>
-                    Jobs recommendations based on your Interest
+                    based on your Interest
                   </Typography>
                   <JobsList></JobsList>
                    

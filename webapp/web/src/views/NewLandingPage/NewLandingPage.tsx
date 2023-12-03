@@ -28,8 +28,8 @@ import FeatureGrid from '../../components/NewLandingPage/FeatureGrid';
 
 const LandingPage = () => {
     const [text, setText] = useState('');
-    const textToType = 'Discover New \n Opportunities';
-    const typingSpeed = 100; // Adjust typing speed as needed
+    const textToType = 'Welcome to JobHive - where opportunities meet talent!';
+    const typingSpeed = 50; // Adjust typing speed as needed
   
    
   useEffect(() => {
@@ -63,22 +63,24 @@ const LandingPage = () => {
             component="img"
             src={LandingPageImage} // Replace with the URL of your desired image
             alt="Your Image Description"
-            style={{ maxWidth: '100%', height: '700px', borderRadius: '40px', position: 'relative' }}
+            style={{ maxWidth: '100%', height: '80vh', borderRadius: '40px', position: 'relative' }}
         />
       <Typography
         variant="h5"
         style={{
           position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          textAlign: 'center',
-          fontSize: '60px', // Adjust the font size here
-          padding: '10px',
-          color: 'rgba(255, 255, 255, 0.8)', // Semi-transparent white color
-          whiteSpace: 'nowrap',
-          overflow: 'hidden',
-          animation: 'typing 3s steps(40) infinite',
+        top: '50%',
+        left: '50%',
+        width: '70%',
+        height: '50%',
+        transform: 'translate(-50%, -50%)',
+        textAlign: 'center',
+        fontSize: '60px',
+        padding: '10px',
+        color: 'rgba(255, 255, 255, 0.8)',
+        whiteSpace: 'normal', // Change to 'normal' for text to wrap onto new lines
+        overflow: 'hidden',
+        animation: 'typing 3s steps(40) infinite',
         }}
       >
         {text}

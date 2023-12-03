@@ -96,17 +96,17 @@ const handleSearch = () => {
   }
 };
   useEffect(() => {
-    // axios
-    // .post(`${API_URL}/getRecommendedJobs/search`, {
-    //   id: getUserId(),
-    // })
-    //   .then((response) => {
-    //     setJobsList(response.data?? []);
-    //   })
-    //   .catch((error) => {
-    //     setJobsList([]);
-    //     console.log(error);
-    //   });
+    axios
+    .post(`${API_URL}/lastsearch`, {
+      id: getUserId(),
+    })
+      .then((response) => {
+        setJobsList(response.data?? []);
+      })
+      .catch((error) => {
+        setJobsList([]);
+        console.log(error);
+      });
   }, []);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -189,15 +189,29 @@ const handleSearch = () => {
   <SkeletonLoader count={5} />
 ) : (
   <>
-    {currentJobs?.length > 0 ? (
-      currentJobs.map((jobInfo) => (
-        <JobCard
-          jobTitle={jobInfo.Job_Title}
-          jobType={jobInfo.Company}
-          location={jobInfo.Location}
-          apply={jobInfo.Apply_Link}
-        />
-      ))
+    {currentJobs?.length > 0 ? ( 
+     <>
+     <Typography
+       sx={{
+         fontSize: "1.75rem",
+         textTransform: "capitalize",
+         fontWeight: "600",
+       }}
+     >
+       Jobs
+     </Typography>
+     <Typography sx={{ color: "#868686", marginBottom:"20px" }}>
+       based on your search
+     </Typography>
+     {currentJobs.map((jobInfo) => (
+       <JobCard
+         jobTitle={jobInfo.Job_Title}
+         jobType={jobInfo.Company}
+         location={jobInfo.Location}
+         apply={jobInfo.Apply_Link}
+       />
+     ))}
+   </>
     ) : (
       <Box
   sx={{
