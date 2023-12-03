@@ -2,18 +2,9 @@ import React, { useState } from "react";
 import {
   Box,
   Typography,
-  Paper,
-  Card,
-  CardMedia,
   Avatar,
-  List,
-  ListItem,
-  ListItemText,
   CardContent,
-  Button,
   Snackbar,
-  IconButton,
-  Tooltip,
 } from "@mui/material";
 import MuiAlert, { AlertColor } from "@mui/material/Alert";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
@@ -36,10 +27,8 @@ import {
 import resumeBuilder from "../../../assets/resume_builder.jpg";
 import networking from "../../../assets/networking.jpg";
 import success from "../../../assets/success.jpeg";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "../../../constants";
-// import SkillsAndJobsForm from './SkillsAndJobsForm';
 
 const styles = {
   container: {
@@ -119,10 +108,7 @@ const StudentDetails = () => {
     severity: "info",
     message: "",
   });
-  const [formData, setFormData] = useState({
-    skills: '',
-    location: ''
-  });
+ 
   const messages = {
     'skillsForm.label.skills': 'Skills',
     'skillsForm.label.location': 'Jobs you are looking for',
@@ -350,13 +336,7 @@ const StudentDetails = () => {
           </Box>
           
         </Box>
-      </CardContent>
-     
-      {/* <SkillsAndJobsForm
-        formData={formData}
-        setFormData={setFormData}
-        
-      /> */}
+      </CardContent>    
     </Box>
   );
 };
