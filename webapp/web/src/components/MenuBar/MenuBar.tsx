@@ -75,7 +75,7 @@ const MenuBar = ({ intl, title, noBtn }: Props) => {
       <StyledLink to="/">Home</StyledLink>
       <StyledLink to="student/home">My Jobs</StyledLink>
       <StyledLink to="student/profile">Profile</StyledLink>
-      <StyledLink to="student/searchjobs">Search A Job</StyledLink>
+      <StyledLink to="student/searchjobs">Explore Jobs</StyledLink>
       <StyledLink to="" onClick={() => {
                   window.open(QUICK_CV_URL, "_blank");
                 }}>
