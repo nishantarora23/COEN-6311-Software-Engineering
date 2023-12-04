@@ -33,8 +33,8 @@ public class DatabaseInstance {
              } catch (ClassNotFoundException e) {
                  throw new RuntimeException(e);
              }
-        	String connectionUrl = Helper.url + "?useSSL=false";
-            instance = DriverManager.getConnection(connectionUrl, Helper.uname, Helper.pass);
+        	//String connectionUrl = Helper.url + "?useSSL=false";
+            instance = DriverManager.getConnection(Helper.url, Helper.uname, Helper.pass);
         }
         return instance;
     }
