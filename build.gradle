@@ -2,7 +2,6 @@ plugins {
     id 'java'
     id 'war'
     id 'org.sonarqube' version '3.3'
-    // Remove the checkstyle plugin from here
 }
 
 sourceCompatibility = 1.8
@@ -43,28 +42,4 @@ sourceSets {
 
 war {
     archiveBaseName = 'jobhive'
-}
-
-check.dependsOn.remove('checkstyleMain')
-
-checkstyle {
-    toolVersion = '8.43'
-    configFile = file("${rootProject.rootDir}/checkstyle.xml")
-    showViolations = true
-    ignoreFailures = true
-    sourceSets = [sourceSets.main]
-}
-
-task generateCheckstyleReport(type: Checkstyle) {
-    dependsOn checkstyleMain
-
-    doLast {
-        // Generate an HTML report
-        ant.checkstylereport(
-            format: 'html',
-            outputfile: file("${buildDir}/checkstyle-report.html")
-        ) {
-            fileset(dir: sourceSets.main.output.resourcesDir)
-        }
-    }
 }
