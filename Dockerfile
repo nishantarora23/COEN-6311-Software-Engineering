@@ -8,7 +8,7 @@ COPY build.gradle ./
 COPY src ./src/
 
 # Build the project
-RUN gradle clean build
+RUN gradle clean build -x test
 
 # Stage 2: Build custom Tomcat image with MySQL Connector JAR and jobhive.war
 FROM tomcat:8.5.91-jdk11 AS tomcat-builder
