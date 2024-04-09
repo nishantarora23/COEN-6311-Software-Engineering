@@ -34,7 +34,6 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "prepare": "cd .. && husky install web/.husky",
     "start": "set BROWSER=none&& react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
