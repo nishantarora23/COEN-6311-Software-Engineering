@@ -23,7 +23,7 @@ public class Helper {
 
     // Static block to initialize database connection parameters
     static {
-        url = "jdbc:mysql://localhost:3306/COEN6311";
+        url = "jdbc:mysql://jobhivemysql:3306/COEN6311";
         uname = "root";
         pass = "admin123";
         System.out.println(url + "  " + uname + "  " + pass);
