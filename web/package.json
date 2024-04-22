@@ -34,17 +34,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "prepare": "cd .. && husky install web/.husky",
     "start": "set BROWSER=none&& react-scripts start",
     "build": "react-scripts build",
+    "build-no-lint": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [
@@ -59,6 +53,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.16.7",
     "husky": "^8.0.0",
     "pretty-quick": "^3.1.3"
   }

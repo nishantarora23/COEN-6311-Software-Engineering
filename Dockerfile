@@ -1,17 +1,4 @@
-# Stage 1: Build the project with Gradle
-FROM gradle:jdk11 AS gradle-builder
-
-WORKDIR /home/gradle/project
-
-# Copy the build files
-COPY build.gradle ./
-COPY src ./src/
-
-# Build the project
-RUN gradle clean build -x test
-
-# Stage 2: Build custom Tomcat image with MySQL Connector JAR and jobhive.war
-FROM tomcat:8.5.91-jdk11 AS tomcat-builder
+FROM tomcat:8.5.91-jdk11 AS tomcat
 
 # Install wget
 RUN apt-get update && apt-get install -y wget
@@ -23,11 +10,10 @@ RUN wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.
     rm -rf mysql-connector-java-8.0.11 mysql-connector-java-8.0.11.tar.gz
 
 # Copy the generated war file from the Gradle build
-COPY --from=gradle-builder /home/gradle/project/build/libs/jobhive.war /usr/local/tomcat/webapps/jobhive.war
+COPY build/libs/jobhive.war /usr/local/tomcat/webapps/jobhive.war
 
-# Stage 3: Final Tomcat image
-FROM tomcat:8.5.91-jdk11
+# Expose port for tomcat
+EXPOSE 8080
 
-# Copy MySQL Connector JAR and jobhive.war from the previous stage
-COPY --from=tomcat-builder /usr/local/tomcat/lib/mysql-connector-java-8.0.11.jar /usr/local/tomcat/lib/
-COPY --from=tomcat-builder /usr/local/tomcat/webapps/jobhive.war /usr/local/tomcat/webapps/
+# Command to run the tomcat
+CMD ["/bin/bash", "-c", "sleep 30 && catalina.sh run"]
